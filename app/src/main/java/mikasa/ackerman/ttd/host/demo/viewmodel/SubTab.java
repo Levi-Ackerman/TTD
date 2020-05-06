@@ -1,4 +1,4 @@
-package mikasa.ackerman.ttd.host
+package mikasa.ackerman.ttd.host.demo.viewmodel;
 
 /**
  * TTD
@@ -18,8 +18,8 @@ package mikasa.ackerman.ttd.host
  *
  * @author zhengxian.lzx@alibaba-inc.com
  * @version 1.0
- * 2020-04-27 11:35
+ * 2020/4/27 9:38 PM
  */
-class KtLifeCycleObserver: MainLifeCycleObserver() {
+public class SubTab {
 
 }
