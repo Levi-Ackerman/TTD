@@ -5,6 +5,7 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import retrofit2.Retrofit;
 
 /**
  * TTD
@@ -31,5 +32,9 @@ public class SubTabViewModel extends ViewModel {
 
     public LiveData<List<SubTab>> getSubtabs() {
         return mSubtabs;
+    }
+
+    public void requestSubTabs() {
+
     }
 }
