@@ -2,6 +2,7 @@ package mikasa.ackerman.ttd.host.demo.viewmodel;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -26,6 +27,9 @@ import androidx.lifecycle.ViewModel;
  * 2020/4/27 9:37 PM
  */
 public class SubTabViewModel extends ViewModel {
-    private MutableLiveData<List<SubTab>> mSubtabs;
+    private MutableLiveData<List<SubTab>> mSubtabs = new MutableLiveData<>();
 
+    public LiveData<List<SubTab>> getSubtabs() {
+        return mSubtabs;
+    }
 }
