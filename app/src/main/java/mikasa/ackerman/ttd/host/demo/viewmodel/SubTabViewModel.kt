@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import mikasa.ackerman.ttd.host.network.MineService
+import mikasa.ackerman.ttd.host.network.Retrofiter
 import mikasa.ackerman.ttd.host.pojo.Result
 import okhttp3.OkHttpClient
 import okhttp3.ResponseBody
@@ -39,19 +40,13 @@ import kotlin.concurrent.thread
  * 2020/4/27 9:37 PM
  */
 class SubTabViewModel : ViewModel() {
-    companion object {
-        const val BASE_URL = "https://api3-normal-c-lf.snssdk.com"
-    }
 
     private val mSubtabs = MutableLiveData<List<SubTab>>()
     val subtabs: LiveData<List<SubTab>>
         get() = mSubtabs
 
     fun requestSubTabs() {
-        val mineService = Retrofit.Builder().baseUrl(BASE_URL).client(OkHttpClient())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(MineService::class.java)
+        val mineService = Retrofiter.create(MineService::class.java)
         thread {
             val result = mineService.mine().enqueue(object : Callback<Result> {
                 override fun onResponse(call: Call<Result>?, response: Response<Result>?) {
