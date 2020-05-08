@@ -1,33 +1,20 @@
 package mikasa.ackerman.ttd.host.demo.viewmodel
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import mikasa.ackerman.ttd.host.common.State
+import mikasa.ackerman.ttd.host.base.ui.StateView
 import mikasa.ackerman.ttd.host.network.BottomTabService
 import mikasa.ackerman.ttd.host.network.Retrofiter
 import mikasa.ackerman.ttd.host.pojo.BottomTabs
+import retrofit2.Response
+import java.lang.Exception
 
 /**
  * TTD
- *
- *
- * Title:
- *
- *
- * Description:
- *
- *
- *
- * <br></br>
- * 用法:
- * <pre>
-</pre> *
- *
  *
  *
  * Copyright: Copyright (c) 2020
@@ -38,26 +25,27 @@ import mikasa.ackerman.ttd.host.pojo.BottomTabs
  */
 class BottomTabsViewModel : ViewModel() {
 
-    private val mState = MutableLiveData<State>()
+    private val mState = MutableLiveData<StateView.ContentState>()
     private var mBottomTabs:BottomTabs? = null
     val bottomTabs: BottomTabs? get() = mBottomTabs
 
-    val state: MutableLiveData<State> get() = mState
+    val state: MutableLiveData<StateView.ContentState> get() = mState
 
     fun requestBottomTabs() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO){
-                val bottomTabService = Retrofiter.create(BottomTabService::class.java)
-                bottomTabService.fetchTabs().execute()
-            }.apply {
-                if(isSuccessful ){
+        mState.value = StateView.ContentState.LOADING
+        viewModelScope.launch(Dispatchers.Main) {
+            mState.value = StateView.ContentState.LOADING
 
-                }
+            val response = withContext(Dispatchers.IO){
+                Retrofiter.create(BottomTabService::class.java).fetchTabs().execute()
             }
 
-//            mBottomTabs = bottomTabs
-
-            mState.value = State.CONTENT
+            if (response.isSuccessful){
+                mBottomTabs = response.body()
+                mState.value = StateView.ContentState.CONTENT
+            }else{
+                mState.value = StateView.ContentState.ERROR
+            }
         }
     }
 }

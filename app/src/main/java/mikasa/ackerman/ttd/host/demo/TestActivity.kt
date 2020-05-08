@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import mikasa.ackerman.ttd.host.R
+import mikasa.ackerman.ttd.host.base.ui.StateView
 import mikasa.ackerman.ttd.host.databinding.ActivityTestBinding
 import mikasa.ackerman.ttd.host.demo.viewmodel.BottomTabsViewModel
 import mikasa.ackerman.ttd.host.pojo.BottomTabs
@@ -21,11 +22,15 @@ class TestActivity : AppCompatActivity() {
         binding.onTestClick = View.OnClickListener {
             mSubTabViewModel.requestBottomTabs()
         }
+        binding.contentState = StateView.ContentState.CONTENT
 
         mSubTabViewModel = ViewModelProvider(this).get(BottomTabsViewModel::class.java)
 
         mSubTabViewModel.state.observe(this, Observer {
-
+            binding.contentState = it
+            if (it == StateView.ContentState.CONTENT){
+                println("result ${mSubTabViewModel.bottomTabs?.data}")
+            }
         })
 
     }

@@ -86,7 +86,7 @@ public class StateView extends FrameLayout {
             setErrorLayoutResourceId(a.getResourceId(R.styleable.NGStateView_svErrorLayout, R.layout.view_state_error));
             setEmptyLayoutResourceId(a.getResourceId(R.styleable.NGStateView_svEmptyLayout, R.layout.view_state_empty));
             mNestedScrollable = a.getBoolean(R.styleable.NGStateView_nestedScrollable, false);
-            setState(ContentState.CONTENT.nativeInt);
+            setState(ContentState.CONTENT);
         } finally {
             a.recycle();
         }

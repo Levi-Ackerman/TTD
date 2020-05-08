@@ -2,26 +2,38 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="onTestClick"
             type="android.view.View.OnClickListener" />
+        <variable
+            name="contentState"
+            type="mikasa.ackerman.ttd.host.base.ui.StateView.ContentState" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <mikasa.ackerman.ttd.host.base.ui.StateView
+        android:id="@+id/state_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".demo.TestActivity">
+        app:state="@{contentState}"
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_test"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="测试"
-            android:onClick="@{onTestClick}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            tools:context=".demo.TestActivity">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btn_test"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{onTestClick}"
+                android:text="测试"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </mikasa.ackerman.ttd.host.base.ui.StateView>
 </layout>
