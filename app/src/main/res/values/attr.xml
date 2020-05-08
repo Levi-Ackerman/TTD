@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NGStateView">
+
+        <attr name="svLoadingLayout" format="reference" />
+        <attr name="svGeneralLayout" format="reference" />
+        <attr name="svErrorLayout" format="reference" />
+        <attr name="svEmptyLayout" format="reference" />
+
+        <attr name="nestedScrollable" format="boolean" />
+
+    </declare-styleable>
+</resources>
