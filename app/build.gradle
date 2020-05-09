@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    dataBinding{
+    dataBinding {
         enabled = true
     }
     buildTypes {
@@ -62,6 +62,12 @@ dependencies {
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation 'org.koin:koin-androidx-viewmodel:1.0.1'
+
+    // Koin for Android
+    implementation "org.koin:koin-android:1.0.1"
+    // Koin Android Scope feature
+    implementation "org.koin:koin-android-scope:1.0.1"
 }
 repositories {
     mavenCentral()

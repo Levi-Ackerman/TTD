@@ -8,6 +8,7 @@
 
 
     <ImageView
+        android:stateListAnimator="@anim/state_loading_rotate"
         android:src="@drawable/ic_state_loading"
         android:layout_width="100dp"
         android:layout_height="100dp"/>
