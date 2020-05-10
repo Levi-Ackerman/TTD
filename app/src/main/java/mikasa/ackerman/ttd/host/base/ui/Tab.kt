@@ -1,5 +1,8 @@
 package mikasa.ackerman.ttd.host.base.ui
 
 import android.graphics.drawable.Drawable
+import android.view.View
 
-data class Tab(val normalDrawable: Drawable, val checkedDrawable: Drawable, val name: String)
+abstract class Tab<T:View>(val name: String?, val tabId: Int) {
+    abstract fun showDrawable(view: T)
+}

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -67,6 +68,8 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
     // Koin AndroidX Experimental features
     implementation "org.koin:koin-androidx-ext:$koin_version"
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
 }
 repositories {
     mavenCentral()

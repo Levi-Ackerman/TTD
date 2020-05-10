@@ -1,12 +1,13 @@
 package mikasa.ackerman.ttd.host.base.ui
 
 import android.content.Context
-import android.graphics.drawable.StateListDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.databinding.BindingAdapter
 import mikasa.ackerman.ttd.host.R
 
 /**
@@ -52,16 +53,12 @@ class BottomTabBar : RadioGroup {
         super.setOnCheckedChangeListener(listener)
     }
 
-    fun setTabList(tabs: List<Tab>) {
+    fun setFixTabs(tabs: List<RBTab>){
         removeAllViews()
         for ((index, tab) in tabs.withIndex()) {
             val bottomButton = (LayoutInflater.from(context).inflate(R.layout.view_bottom_bar_tab, this, false) as RadioButton).apply {
                 text = tab.name
-                setCompoundDrawablesWithIntrinsicBounds(null, StateListDrawable().apply {
-                    addState(intArrayOf(android.R.attr.state_checked), tab.checkedDrawable)
-                    //负号表示"非"
-                    addState(intArrayOf(-android.R.attr.state_checked), tab.normalDrawable)
-                }, null, null)
+                tab.showDrawable(this)
                 id = index
             }
             addView(bottomButton)
@@ -71,6 +68,20 @@ class BottomTabBar : RadioGroup {
                 (getChildAt(DEFAULT_TAB_INDEX) as RadioButton).isChecked = true
             }
         }
+    }
+
+    fun setDynamicTabList(tabs: List<RBTab>?) {
+        if (tabs != null) {
+            for (tab in tabs) {
+                val bottomButton = (LayoutInflater.from(context).inflate(R.layout.view_bottom_bar_tab, this, false) as RadioButton).apply {
+                    text = tab.name
+                    tab.showDrawable(this)
+                    id = tab.tabId
+                }
+                addView(bottomButton,1 )
+            }
+        }
+
     }
 
 }

@@ -3,10 +3,21 @@
  */
 package mikasa.ackerman.ttd.host.home.viewmodel
 
-import androidx.lifecycle.LiveData
+import android.app.Application
+import android.graphics.drawable.BitmapDrawable
 import androidx.lifecycle.MutableLiveData
-import mikasa.ackerman.ttd.host.base.ui.Tab
+import androidx.lifecycle.viewModelScope
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import mikasa.ackerman.ttd.host.R
+import mikasa.ackerman.ttd.host.base.ui.LocalRBTab
+import mikasa.ackerman.ttd.host.base.ui.RBTab
+import mikasa.ackerman.ttd.host.base.ui.RemoteRBTab
 import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
+import mikasa.ackerman.ttd.host.network.BottomTabService
+import mikasa.ackerman.ttd.host.pojo.BottomTabs
 
 /**
  * description: HomeViewModel
@@ -15,10 +26,52 @@ import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
  *
  * @date 2020/05/08
  */
-class HomeViewModel(fixTabs: List<Tab>) : BaseViewModel() {
-    private val mBottomTabs = MutableLiveData(fixTabs)
+class HomeViewModel(app: Application, private val mFixTabs: List<RBTab>, private val mBottomTabService: BottomTabService) : BaseViewModel(app) {
 
-    val bottomTabs: LiveData<List<Tab>> get() = mBottomTabs
+    private val mBottomTabs = MutableLiveData<List<RBTab>>()
 
-    val defaultTab: Int get() = 1
+    val bottomTabs get() = mBottomTabs
+
+    val fixTabs get() = mFixTabs
+
+    /**
+     * 请求底部的动态tab列表
+     */
+    fun requestDynamicTabs() {
+        viewModelScope.launch(Dispatchers.Main) {
+            onLoadingState()
+            val response = withContext(Dispatchers.IO) {
+                mBottomTabService.fetchTabs().execute()
+            }
+            if (response.isSuccessful) {
+                val bottomTabs = response.body()
+                if (bottomTabs?.isEmpty() != false) {
+                    // != false 等价于 左边为null或者true，都是空返回的情况
+                    onEmptyState()
+                } else {
+                    updateTabs(bottomTabs.getContent())
+                    onContentState()
+                }
+            } else {
+                onErrorState()
+            }
+        }
+    }
+
+    private suspend fun updateTabs(content: List<BottomTabs.Data.NormalList>?) {
+        if (content != null) {
+            val resources = getApplication<Application>().resources
+            val size = resources.getDimension(R.dimen.bottom_bar_icon_size).toInt()
+            mBottomTabs.value = content.map {
+                val normalBmp = withContext(Dispatchers.IO) {
+                    Picasso.with(getApplication()).load(it.newTabIconUrlNormal).resize(size, size).get()
+                }
+                val pressBmp = withContext(Dispatchers.IO) {
+                    Picasso.with(getApplication()).load(it.newTabIconUrlPressed).resize(size, size).get()
+                }
+                LocalRBTab(BitmapDrawable(resources, normalBmp), BitmapDrawable(resources, pressBmp), it.tabName, it.tabId.hashCode())
+            }
+        }
+    }
+
 }

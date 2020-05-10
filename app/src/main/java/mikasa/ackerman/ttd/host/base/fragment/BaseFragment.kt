@@ -44,8 +44,6 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), Presenter {
 
     protected lateinit var mContext: Context
 
-    protected var lazyLoad = false
-
     protected var visible = false
 
     /**
@@ -68,13 +66,8 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), Presenter {
         mContext = activity ?: throw Exception("activity 为null")
         retainInstance = true
         initView()
-        if (lazyLoad) {
-            //延迟加载，需重写lazyLoad方法
-            lazyLoad()
-        } else {
-            // 加载数据
-            loadData(true);
-        }
+        // 加载数据
+        loadData(true);
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -86,36 +79,11 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), Presenter {
 
     abstract fun bindVm()
 
-    /**
-     * 是否可见，延迟加载
-     */
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-        if (userVisibleHint) {
-            visible = true
-            onVisible()
-        } else {
-            visible = false
-            onInvisible()
-        }
-    }
-
-    protected fun onInvisible() {
-
-    }
-
-    protected open fun onVisible() {
-        lazyLoad()
-    }
-
-
-    open fun lazyLoad() {}
-
     open fun initArgs(savedInstanceState: Bundle?) {
 
     }
 
-    abstract fun initView()
+    open fun initView(){}
     abstract override fun loadData(isRefresh: Boolean)
 
     abstract fun getLayoutId(): Int

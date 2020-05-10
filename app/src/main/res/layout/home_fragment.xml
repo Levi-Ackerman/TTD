@@ -29,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_bar_height"
             android:layout_gravity="bottom"
+            app:fixTabs="@{vm.fixTabs}"
             app:onCheckedChangeListener="@{presenter}"
-            app:tabList="@{vm.bottomTabs}"/>
+            app:dynamicTabList="@{vm.bottomTabs}"/>
     </LinearLayout>
 </layout>

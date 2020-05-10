@@ -28,20 +28,13 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), RadioGroup.OnCheckedCh
         }
     }
 
-    override fun initView() {
-        lazyLoad = true
-    }
-
-    override fun lazyLoad() {
-        super.lazyLoad()
-//        mViewModel.
-    }
-
     override fun loadData(isRefresh: Boolean) {
-
+        mViewModel.requestDynamicTabs()
     }
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-        println("on Checked changed : $checkedId")
+
     }
+
+
 }
