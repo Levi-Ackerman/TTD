@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
+        <variable
+            name="presenter"
+            type="mikasa.ackerman.ttd.host.base.fragment.Presenter" />
+
         <variable
             name="vm"
             type="mikasa.ackerman.ttd.host.home.viewmodel.HomeViewModel" />
@@ -12,5 +17,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <FrameLayout
+            android:id="@+id/subFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <mikasa.ackerman.ttd.host.base.ui.BottomTabBar
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_bar_height"
+            android:layout_gravity="bottom" />
     </LinearLayout>
 </layout>

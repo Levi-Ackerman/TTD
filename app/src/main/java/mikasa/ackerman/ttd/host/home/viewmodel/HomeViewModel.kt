@@ -12,6 +12,5 @@ import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
  *
  * @date 2020/05/08
  */
-class HomeViewModel constructor() : BaseViewModel() {
-
+class HomeViewModel: BaseViewModel() {
 }

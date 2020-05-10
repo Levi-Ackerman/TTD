@@ -61,13 +61,12 @@ dependencies {
     implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-    implementation 'org.koin:koin-androidx-viewmodel:1.0.1'
-
-    // Koin for Android
-    implementation "org.koin:koin-android:1.0.1"
-    // Koin Android Scope feature
-    implementation "org.koin:koin-android-scope:1.0.1"
+    // Koin AndroidX Scope features
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    // Koin AndroidX ViewModel features
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    // Koin AndroidX Experimental features
+    implementation "org.koin:koin-androidx-ext:$koin_version"
 }
 repositories {
     mavenCentral()
