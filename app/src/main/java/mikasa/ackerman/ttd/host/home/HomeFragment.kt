@@ -3,6 +3,7 @@
  */
 package mikasa.ackerman.ttd.host.home
 
+import android.widget.RadioGroup
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.HomeFragmentBinding
@@ -14,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * @see HomeViewModel
  * @date 2020/05/08
  */
-class HomeFragment : BaseFragment<HomeFragmentBinding>() {
+class HomeFragment : BaseFragment<HomeFragmentBinding>(), RadioGroup.OnCheckedChangeListener {
 
     private val mViewModel: HomeViewModel by viewModel()
 
@@ -38,5 +39,9 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>() {
 
     override fun loadData(isRefresh: Boolean) {
 
+    }
+
+    override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
+        println("on Checked changed : $checkedId")
     }
 }

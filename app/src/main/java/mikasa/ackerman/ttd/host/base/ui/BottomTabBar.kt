@@ -30,6 +30,9 @@ import mikasa.ackerman.ttd.host.R
  * 2020/5/9 7:43 PM
  */
 class BottomTabBar : RadioGroup {
+    companion object{
+        const val DEFAULT_TAB_INDEX = 0
+    }
 
     constructor(context: Context?) : super(context) {
         init()
@@ -45,17 +48,27 @@ class BottomTabBar : RadioGroup {
         setBackgroundColor(resources.getColor(R.color.color_button_bar_background))
     }
 
+    override fun setOnCheckedChangeListener(listener: OnCheckedChangeListener?) {
+        super.setOnCheckedChangeListener(listener)
+    }
+
     fun setTabList(tabs: List<Tab>) {
         removeAllViews()
-        for (tab in tabs) {
-            LayoutInflater.from(context).inflate(R.layout.view_bottom_bar_tab, this, true)
-            findViewById<RadioButton>(R.id.bottom_bar_tab).apply {
+        for ((index, tab) in tabs.withIndex()) {
+            val bottomButton = (LayoutInflater.from(context).inflate(R.layout.view_bottom_bar_tab, this, false) as RadioButton).apply {
                 text = tab.name
                 setCompoundDrawablesWithIntrinsicBounds(null, StateListDrawable().apply {
                     addState(intArrayOf(android.R.attr.state_checked), tab.checkedDrawable)
                     //负号表示"非"
                     addState(intArrayOf(-android.R.attr.state_checked), tab.normalDrawable)
                 }, null, null)
+                id = index
+            }
+            addView(bottomButton)
+        }
+        post {
+            if(childCount > DEFAULT_TAB_INDEX){
+                (getChildAt(DEFAULT_TAB_INDEX) as RadioButton).isChecked = true
             }
         }
     }

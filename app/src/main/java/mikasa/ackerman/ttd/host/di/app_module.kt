@@ -28,10 +28,12 @@ import org.koin.dsl.module
  * 2020/5/10 3:13 PM
  */
 val singleModule = module {
-    single {
+    single<List<Tab>> {
         listOf(Tab(get<Context>().resources.getDrawable(R.drawable.tab_home_normal),
                 get<Context>().resources.getDrawable(R.drawable.tab_home_selected)
-                , "首页") )
+                , "首页"),
+                Tab(get<Context>().resources.getDrawable(R.drawable.tab_me_normal),
+                        get<Context>().resources.getDrawable(R.drawable.tab_me_selected), "我的"))
     }
 }
 

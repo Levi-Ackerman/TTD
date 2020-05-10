@@ -6,7 +6,7 @@
 
         <variable
             name="presenter"
-            type="mikasa.ackerman.ttd.host.base.fragment.Presenter" />
+            type="mikasa.ackerman.ttd.host.home.HomeFragment" />
 
         <variable
             name="vm"
@@ -29,6 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_bar_height"
             android:layout_gravity="bottom"
-            app:tabList="@{vm.bottomTabs}" />
+            app:onCheckedChangeListener="@{presenter}"
+            app:tabList="@{vm.bottomTabs}"/>
     </LinearLayout>
 </layout>

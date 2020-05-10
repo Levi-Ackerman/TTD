@@ -15,10 +15,10 @@ import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
  *
  * @date 2020/05/08
  */
-class HomeViewModel(fixTabs:List<Tab>) : BaseViewModel() {
+class HomeViewModel(fixTabs: List<Tab>) : BaseViewModel() {
     private val mBottomTabs = MutableLiveData(fixTabs)
 
     val bottomTabs: LiveData<List<Tab>> get() = mBottomTabs
 
-
+    val defaultTab: Int get() = 1
 }
