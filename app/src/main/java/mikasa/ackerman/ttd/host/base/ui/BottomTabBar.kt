@@ -1,7 +1,6 @@
 package mikasa.ackerman.ttd.host.base.ui
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.StateListDrawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -44,7 +43,6 @@ class BottomTabBar : RadioGroup {
     private fun init() {
         orientation = LinearLayout.HORIZONTAL
         setBackgroundColor(resources.getColor(R.color.color_button_bar_background))
-
     }
 
     fun setTabList(tabs: List<Tab>) {
@@ -62,5 +60,4 @@ class BottomTabBar : RadioGroup {
         }
     }
 
-    data class Tab(val normalDrawable: Drawable, val checkedDrawable: Drawable, val name: String)
 }

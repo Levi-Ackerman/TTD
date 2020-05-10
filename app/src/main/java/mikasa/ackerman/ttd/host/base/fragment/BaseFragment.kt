@@ -78,10 +78,13 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(), Presenter {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        bindVm()
         mBinding.executePendingBindings()
         mBinding.lifecycleOwner = this
         return mBinding.root
     }
+
+    abstract fun bindVm()
 
     /**
      * 是否可见，延迟加载
