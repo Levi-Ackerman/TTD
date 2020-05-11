@@ -18,8 +18,8 @@
             android:id="@+id/uikit_error_icon"
             android:src="@drawable/ic_state_error"
             android:scaleType="fitXY"
-            android:layout_width="125dp"
-            android:layout_height="125dp" />
+            android:layout_width="@dimen/state_icon_size"
+            android:layout_height="@dimen/state_icon_size" />
 
         <TextView
             android:id="@+id/uikit_sub_error_txt"

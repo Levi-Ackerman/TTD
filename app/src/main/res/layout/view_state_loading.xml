@@ -7,11 +7,11 @@
     android:orientation="vertical">
 
 
-    <ImageView
+    <ProgressBar
         android:stateListAnimator="@anim/state_loading_rotate"
         android:src="@drawable/ic_state_loading"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+        android:layout_width="@dimen/state_icon_size"
+        android:layout_height="@dimen/state_icon_size"/>
 
 
 </LinearLayout>

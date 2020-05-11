@@ -13,24 +13,30 @@
             type="mikasa.ackerman.ttd.host.home.viewmodel.HomeViewModel" />
     </data>
 
-    <LinearLayout
+    <mikasa.ackerman.ttd.host.base.ui.StateView
+        app:state="@{vm.state}"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <FrameLayout
-            android:id="@+id/subFragment"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <mikasa.ackerman.ttd.host.base.ui.BottomTabBar
-            android:id="@+id/bottom_bar"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/bottom_bar_height"
-            android:layout_gravity="bottom"
-            app:fixTabs="@{vm.fixTabs}"
-            app:onCheckedChangeListener="@{presenter}"
-            app:dynamicTabList="@{vm.bottomTabs}"/>
-    </LinearLayout>
+            <FrameLayout
+                android:id="@+id/subFragment"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <mikasa.ackerman.ttd.host.base.ui.BottomTabBar
+                android:id="@+id/bottom_bar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_bar_height"
+                android:layout_gravity="bottom"
+                app:dynamicTabList="@{vm.bottomTabs}"
+                app:fixTabs="@{vm.fixTabs}"
+                app:onCheckedChangeListener="@{presenter}" />
+        </LinearLayout>
+    </mikasa.ackerman.ttd.host.base.ui.StateView>
 </layout>

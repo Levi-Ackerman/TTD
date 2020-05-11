@@ -2,4 +2,5 @@
 <resources>
     <dimen name="bottom_bar_height">45dp</dimen>
     <dimen name="bottom_bar_icon_size">32dp</dimen>
+    <dimen name="state_icon_size">50dp</dimen>
 </resources>
