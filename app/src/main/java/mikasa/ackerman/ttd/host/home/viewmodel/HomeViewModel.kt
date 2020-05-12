@@ -31,6 +31,10 @@ class HomeViewModel(app: Application, private val mFixTabs: List<RBTab>, private
 
     val bottomTabs get() = mBottomTabs
 
+    private val mCheckedTabIndex = MutableLiveData(-1)
+
+    val checkedTabIndex get() = mCheckedTabIndex
+
     /**
      * 请求底部的动态tab列表
      */
@@ -82,12 +86,12 @@ class HomeViewModel(app: Application, private val mFixTabs: List<RBTab>, private
      */
     fun onTabClicked(checkedId: Int) {
         var checkedIndex = -1
-        for (i in mBottomTabs.value!!.indices){
-            if (mBottomTabs.value!![i].tabId == checkedId){
+        for (i in mBottomTabs.value!!.indices) {
+            if (mBottomTabs.value!![i].tabId == checkedId) {
                 checkedIndex = i
                 break
             }
         }
-        println("点击了id $checkedId, 对应tab $checkedIndex")
+        mCheckedTabIndex.value = checkedIndex
     }
 }

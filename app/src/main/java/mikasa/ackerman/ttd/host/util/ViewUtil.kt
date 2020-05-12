@@ -26,4 +26,12 @@ object ViewUtil {
     fun dp2px(context: Context, dp: Int): Float {
         return dp * context.resources.displayMetrics.density
     }
+
+    fun getStatusBarHeight(context: Context):Int {
+        val resourceId = context.resources.getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return context.resources.getDimensionPixelSize(resourceId);
+        }
+        return 0
+    }
 }

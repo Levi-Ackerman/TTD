@@ -8,6 +8,7 @@ import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.IndexFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
+import mikasa.ackerman.ttd.host.util.ViewUtil
 
 /**
  * description: IndexFragment
@@ -20,12 +21,20 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
 
     override fun getLayoutId(): Int = R.layout.index_fragment
 
-    override fun loadData(isRefresh: Boolean) {
+    override fun initView() {
+        super.initView()
 
+    }
+
+    override fun loadData(isRefresh: Boolean) {
+        println("on loadData")
     }
 
     override fun bindVm() {
         mBinding.apply {
+            statusSpaceView.layoutParams.apply {
+                height = ViewUtil.getStatusBarHeight(context!!)
+            }
             vm = mViewModel
         }
     }

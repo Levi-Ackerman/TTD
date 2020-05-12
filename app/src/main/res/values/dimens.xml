@@ -3,4 +3,6 @@
     <dimen name="bottom_bar_height">45dp</dimen>
     <dimen name="bottom_bar_icon_size">32dp</dimen>
     <dimen name="state_icon_size">50dp</dimen>
+    <dimen name="tool_bar_height">48dp</dimen>
+    <dimen name="status_bar_height">28dp</dimen>
 </resources>
