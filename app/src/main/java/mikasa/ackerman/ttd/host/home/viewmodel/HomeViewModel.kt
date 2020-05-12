@@ -14,7 +14,6 @@ import kotlinx.coroutines.withContext
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.ui.LocalRBTab
 import mikasa.ackerman.ttd.host.base.ui.RBTab
-import mikasa.ackerman.ttd.host.base.ui.RemoteRBTab
 import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
 import mikasa.ackerman.ttd.host.network.BottomTabService
 import mikasa.ackerman.ttd.host.pojo.BottomTabs
@@ -31,8 +30,6 @@ class HomeViewModel(app: Application, private val mFixTabs: List<RBTab>, private
     private val mBottomTabs = MutableLiveData<List<RBTab>>()
 
     val bottomTabs get() = mBottomTabs
-
-    val fixTabs get() = mFixTabs
 
     /**
      * 请求底部的动态tab列表
@@ -62,7 +59,7 @@ class HomeViewModel(app: Application, private val mFixTabs: List<RBTab>, private
         if (content != null) {
             val resources = getApplication<Application>().resources
             val size = resources.getDimension(R.dimen.bottom_bar_icon_size).toInt()
-            mBottomTabs.value = content.map {
+            val tabs: List<RBTab> = content.map {
                 val normalBmp = withContext(Dispatchers.IO) {
                     Picasso.with(getApplication()).load(it.newTabIconUrlNormal).resize(size, size).get()
                 }
@@ -71,7 +68,26 @@ class HomeViewModel(app: Application, private val mFixTabs: List<RBTab>, private
                 }
                 LocalRBTab(BitmapDrawable(resources, normalBmp), BitmapDrawable(resources, pressBmp), it.tabName, it.tabId.hashCode())
             }
+            mBottomTabs.value = tabs.toMutableList().apply {
+                add(0, mFixTabs[0])
+                for (i in 1 until mFixTabs.size) {
+                    add(mFixTabs[i])
+                }
+            }
         }
     }
 
+    /**
+     * tab被点击
+     */
+    fun onTabClicked(checkedId: Int) {
+        var checkedIndex = -1
+        for (i in mBottomTabs.value!!.indices){
+            if (mBottomTabs.value!![i].tabId == checkedId){
+                checkedIndex = i
+                break
+            }
+        }
+        println("点击了id $checkedId, 对应tab $checkedIndex")
+    }
 }

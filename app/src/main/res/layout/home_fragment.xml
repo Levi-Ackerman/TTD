@@ -35,7 +35,6 @@
                 android:layout_height="@dimen/bottom_bar_height"
                 android:layout_gravity="bottom"
                 app:dynamicTabList="@{vm.bottomTabs}"
-                app:fixTabs="@{vm.fixTabs}"
                 app:onCheckedChangeListener="@{presenter}" />
         </LinearLayout>
     </mikasa.ackerman.ttd.host.base.ui.StateView>

@@ -33,7 +33,7 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), RadioGroup.OnCheckedCh
     }
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-
+        mViewModel.onTabClicked(checkedId)
     }
 
 

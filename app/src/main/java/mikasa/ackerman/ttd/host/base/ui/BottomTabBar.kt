@@ -53,23 +53,6 @@ class BottomTabBar : RadioGroup {
         super.setOnCheckedChangeListener(listener)
     }
 
-    fun setFixTabs(tabs: List<RBTab>){
-        removeAllViews()
-        for ((index, tab) in tabs.withIndex()) {
-            val bottomButton = (LayoutInflater.from(context).inflate(R.layout.view_bottom_bar_tab, this, false) as RadioButton).apply {
-                text = tab.name
-                tab.showDrawable(this)
-                id = index
-            }
-            addView(bottomButton)
-        }
-        post {
-            if(childCount > DEFAULT_TAB_INDEX){
-                (getChildAt(DEFAULT_TAB_INDEX) as RadioButton).isChecked = true
-            }
-        }
-    }
-
     fun setDynamicTabList(tabs: List<RBTab>?) {
         if (tabs != null) {
             for (tab in tabs) {
@@ -78,7 +61,13 @@ class BottomTabBar : RadioGroup {
                     tab.showDrawable(this)
                     id = tab.tabId
                 }
-                addView(bottomButton,1 )
+                addView(bottomButton)
+            }
+
+            post {
+                if(childCount > DEFAULT_TAB_INDEX){
+                    (getChildAt(DEFAULT_TAB_INDEX) as RadioButton).isChecked = true
+                }
             }
         }
 
