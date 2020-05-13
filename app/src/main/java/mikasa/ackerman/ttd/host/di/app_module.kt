@@ -7,6 +7,7 @@ import mikasa.ackerman.ttd.host.base.ui.RBTab
 import mikasa.ackerman.ttd.host.home.viewmodel.HomeViewModel
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
 import mikasa.ackerman.ttd.host.network.BottomTabService
+import mikasa.ackerman.ttd.host.network.SearchSuggestionService
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -57,10 +58,13 @@ val serviceModule = module {
     single<BottomTabService> {
         get<Retrofit>().create(BottomTabService::class.java)
     }
+    single<SearchSuggestionService> {
+        get<Retrofit>().create(SearchSuggestionService::class.java)
+    }
 }
 
 val vmModule = module {
     viewModel { HomeViewModel(androidApplication(), get(), get()) }
-    viewModel { IndexViewModel(androidApplication()) }
+    viewModel { IndexViewModel(androidApplication(), get()) }
 }
 val appModule = listOf(singleModule, vmModule, serviceModule)

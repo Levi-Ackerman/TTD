@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -31,6 +32,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="4dp"
                 android:paddingLeft="8dp"
+                android:hint="@{vm.searchSuggestsText}"
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="6dp"
                 android:background="@drawable/bg_top_search_textview" />

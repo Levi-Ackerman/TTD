@@ -27,7 +27,7 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
     }
 
     override fun loadData(isRefresh: Boolean) {
-        println("on loadData")
+        mViewModel.loadSearchSuggests()
     }
 
     override fun bindVm() {
