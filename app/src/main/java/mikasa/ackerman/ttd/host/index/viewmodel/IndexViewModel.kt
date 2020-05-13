@@ -15,6 +15,7 @@ import mikasa.ackerman.ttd.host.network.ArticleCategoryService
 import mikasa.ackerman.ttd.host.network.SearchSuggestionService
 import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.pojo.SearchSuggests
+import java.lang.Exception
 
 /**
  * description: IndexViewModel
@@ -29,17 +30,33 @@ class IndexViewModel(app: Application, val mSearchSuggestionService: SearchSugge
 
     var searchSuggestsText = MutableLiveData<String>()
 
+    fun loadArticleTabs() {
+        viewModelScope.launch {
+            try {
+                val articleCategoryResp =
+                        withContext(Dispatchers.IO) {
+                            val result = mArticleCategoryService.getCategories().execute()
+                            result
+                        }
+
+                mArticleCategory.value = with(articleCategoryResp) {
+                    if (isSuccessful) {
+                        body()?.getContent()
+                    } else {
+                        listOf()
+                    }
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
     fun loadSearchSuggests() {
         viewModelScope.launch {
             val searchSuggestResp = async {
                 withContext(Dispatchers.IO) {
                     mSearchSuggestionService.searchSuggestion().execute()
-                }
-            }
-
-            val articleCategoryResp = async {
-                withContext(Dispatchers.IO) {
-                    mArticleCategoryService.getCategories().execute()
                 }
             }
 
@@ -53,14 +70,6 @@ class IndexViewModel(app: Application, val mSearchSuggestionService: SearchSugge
                     it.word!!
                 }) ?: ""
                 list
-            }
-
-            mArticleCategory.value = with(articleCategoryResp.await()) {
-                if (isSuccessful) {
-                    body()?.getContent()
-                } else {
-                    listOf()
-                }
             }
         }
     }

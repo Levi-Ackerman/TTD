@@ -9,6 +9,7 @@ import mikasa.ackerman.ttd.host.databinding.IndexFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
 import mikasa.ackerman.ttd.host.util.ViewUtil
+import java.lang.Exception
 
 /**
  * description: IndexFragment
@@ -27,7 +28,13 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
     }
 
     override fun loadData(isRefresh: Boolean) {
-        mViewModel.loadSearchSuggests()
+        try {
+            mViewModel.loadSearchSuggests()
+            mViewModel.loadArticleTabs()
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
     }
 
     override fun bindVm() {
