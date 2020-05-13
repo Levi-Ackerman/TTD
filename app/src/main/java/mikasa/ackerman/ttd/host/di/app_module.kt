@@ -5,6 +5,7 @@ import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.ui.LocalRBTab
 import mikasa.ackerman.ttd.host.base.ui.RBTab
 import mikasa.ackerman.ttd.host.home.viewmodel.HomeViewModel
+import mikasa.ackerman.ttd.host.index.article.viewmodel.ArticleViewModel
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
 import mikasa.ackerman.ttd.host.network.ArticleCategoryService
 import mikasa.ackerman.ttd.host.network.BottomTabService
@@ -70,5 +71,6 @@ val serviceModule = module {
 val vmModule = module {
     viewModel { HomeViewModel(androidApplication(), get(), get()) }
     viewModel { IndexViewModel(androidApplication(), get(), get()) }
+    viewModel { ArticleViewModel(androidApplication()) }
 }
 val appModule = listOf(singleModule, vmModule, serviceModule)

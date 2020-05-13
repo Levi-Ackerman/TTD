@@ -3,13 +3,20 @@
  */
 package mikasa.ackerman.ttd.host.index
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Observer
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.IndexFragmentBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import mikasa.ackerman.ttd.host.index.article.ArticleFragment
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
+import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.util.ViewUtil
 import java.lang.Exception
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * description: IndexFragment
@@ -22,19 +29,12 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
 
     override fun getLayoutId(): Int = R.layout.index_fragment
 
-    override fun initView() {
-        super.initView()
-
+    private val mAdapter: IndexPageAdapter by lazy {
+        IndexPageAdapter(activity!!, mutableListOf())
     }
 
     override fun loadData(isRefresh: Boolean) {
-        try {
-            mViewModel.loadSearchSuggests()
-            mViewModel.loadArticleTabs()
-        }catch (e:Exception){
-            e.printStackTrace()
-        }
-
+        mViewModel.loadData(isRefresh)
     }
 
     override fun bindVm() {
@@ -43,6 +43,40 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
                 height = ViewUtil.getStatusBarHeight(context!!)
             }
             vm = mViewModel
+            indexViewPager.adapter = mAdapter
+            TabLayoutMediator(articleCategoryTab, indexViewPager) { tab, position ->
+                tab.text = mAdapter.getItemTitle(position)
+            }.attach()
+        }
+
+
+        mViewModel.articleCategories.observe(this, Observer { categorys ->
+            mAdapter.setCategories(categorys)
+            mAdapter.notifyDataSetChanged()
+        })
+    }
+
+    class IndexPageAdapter(fragmentActivity: FragmentActivity, val mCategories: MutableList<ArticleCategories.DataX.Data>) : FragmentStateAdapter(fragmentActivity) {
+
+        fun setCategories(categories: List<ArticleCategories.DataX.Data>) {
+            mCategories.clear()
+            mCategories.addAll(categories)
+        }
+
+        fun getItemTitle(position: Int): String? {
+            return if (position < mCategories.size) {
+                mCategories[position].name
+            } else {
+                ""
+            }
+        }
+
+        override fun getItemCount(): Int {
+            return mCategories.size
+        }
+
+        override fun createFragment(position: Int): Fragment {
+                return ArticleFragment()
         }
     }
 }

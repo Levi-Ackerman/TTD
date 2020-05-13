@@ -15,7 +15,6 @@ import mikasa.ackerman.ttd.host.network.ArticleCategoryService
 import mikasa.ackerman.ttd.host.network.SearchSuggestionService
 import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.pojo.SearchSuggests
-import java.lang.Exception
 
 /**
  * description: IndexViewModel
@@ -24,43 +23,31 @@ import java.lang.Exception
  *
  * @date 2020/05/10
  */
-class IndexViewModel(app: Application, val mSearchSuggestionService: SearchSuggestionService, val mArticleCategoryService: ArticleCategoryService) : BaseViewModel(app) {
+class IndexViewModel(app: Application, private val mSearchSuggestionService: SearchSuggestionService, private val mArticleCategoryService: ArticleCategoryService) : BaseViewModel(app) {
     private val mArticleCategory = MutableLiveData<List<ArticleCategories.DataX.Data>>()
     private val mSearchSuggests = MutableLiveData<List<SearchSuggests.Data.SuggestWords>>()
 
     var searchSuggestsText = MutableLiveData<String>()
+    val articleCategories get() = mArticleCategory
 
-    fun loadArticleTabs() {
-        viewModelScope.launch {
-            try {
-                val articleCategoryResp =
-                        withContext(Dispatchers.IO) {
-                            val result = mArticleCategoryService.getCategories().execute()
-                            result
-                        }
+    suspend fun loadArticleTabs() {
+        val articleCategoryResp = mArticleCategoryService.getCategories().execute()
 
-                mArticleCategory.value = with(articleCategoryResp) {
-                    if (isSuccessful) {
-                        body()?.getContent()
-                    } else {
-                        listOf()
-                    }
+        withContext(Dispatchers.Main) {
+            mArticleCategory.value = with(articleCategoryResp) {
+                if (isSuccessful) {
+                    body()?.getContent()
+                } else {
+                    listOf()
                 }
-            }catch (e:Exception){
-                e.printStackTrace()
             }
         }
     }
 
-    fun loadSearchSuggests() {
-        viewModelScope.launch {
-            val searchSuggestResp = async {
-                withContext(Dispatchers.IO) {
-                    mSearchSuggestionService.searchSuggestion().execute()
-                }
-            }
-
-            mSearchSuggests.value = with(searchSuggestResp.await()) {
+    suspend fun loadSearchSuggests() {
+        val searchSuggestResp = mSearchSuggestionService.searchSuggestion().execute()
+        withContext(Dispatchers.Main) {
+            mSearchSuggests.value = with(searchSuggestResp) {
                 val list = if (isSuccessful) {
                     body()?.getContent()
                 } else {
@@ -72,6 +59,17 @@ class IndexViewModel(app: Application, val mSearchSuggestionService: SearchSugge
                 list
             }
         }
+    }
+
+    fun loadData(refresh: Boolean) {
+            viewModelScope.launch(Dispatchers.IO) {
+                try {
+                    loadSearchSuggests()
+                    loadArticleTabs()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
     }
 
 }
