@@ -21,6 +21,6 @@ package mikasa.ackerman.ttd.host.pojo
  * 2020/5/10 10:30 PM
  */
 interface IPojo<T> {
-    fun isEmpty(): Boolean?
-    fun getContent(): T?
+    fun isEmpty(): Boolean
+    fun getContent(): T
 }

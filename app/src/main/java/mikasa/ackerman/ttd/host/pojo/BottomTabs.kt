@@ -28,12 +28,12 @@ import com.google.gson.annotations.SerializedName
  */
 class BottomTabs : IPojo<List<BottomTabs.Data.NormalList>> {
 
-    override fun isEmpty(): Boolean? {
-        return data?.normalList?.isEmpty()
+    override fun isEmpty(): Boolean {
+        return data?.normalList?.isEmpty()?:true
     }
 
-    override fun getContent(): List<Data.NormalList>? {
-        return data?.normalList
+    override fun getContent(): List<Data.NormalList> {
+        return data?.normalList?: listOf()
     }
 
     /**

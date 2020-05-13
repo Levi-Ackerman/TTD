@@ -40,12 +40,12 @@ class SearchSuggests : IPojo<List<SuggestWords>> {
     @SerializedName("message")
     var message: String? = null
 
-    override fun isEmpty(): Boolean? {
-        return data?.suggestWords?.isEmpty()
+    override fun isEmpty(): Boolean {
+        return data?.suggestWords?.isEmpty()?:true
     }
 
-    override fun getContent(): List<SuggestWords>? {
-        return data?.suggestWords
+    override fun getContent(): List<SuggestWords> {
+        return data?.suggestWords?: listOf()
     }
 
     class Data {

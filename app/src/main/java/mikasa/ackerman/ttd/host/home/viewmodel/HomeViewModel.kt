@@ -59,24 +59,22 @@ class HomeViewModel(app: Application, private val mFixTabs: List<RBTab>, private
         }
     }
 
-    private suspend fun updateTabs(content: List<BottomTabs.Data.NormalList>?) {
-        if (content != null) {
-            val resources = getApplication<Application>().resources
-            val size = resources.getDimension(R.dimen.bottom_bar_icon_size).toInt()
-            val tabs: List<RBTab> = content.map {
-                val normalBmp = withContext(Dispatchers.IO) {
-                    Picasso.with(getApplication()).load(it.newTabIconUrlNormal).resize(size, size).get()
-                }
-                val pressBmp = withContext(Dispatchers.IO) {
-                    Picasso.with(getApplication()).load(it.newTabIconUrlPressed).resize(size, size).get()
-                }
-                LocalRBTab(BitmapDrawable(resources, normalBmp), BitmapDrawable(resources, pressBmp), it.tabName, it.tabId.hashCode())
+    private suspend fun updateTabs(content: List<BottomTabs.Data.NormalList>) {
+        val resources = getApplication<Application>().resources
+        val size = resources.getDimension(R.dimen.bottom_bar_icon_size).toInt()
+        val tabs: List<RBTab> = content.map {
+            val normalBmp = withContext(Dispatchers.IO) {
+                Picasso.with(getApplication()).load(it.newTabIconUrlNormal).resize(size, size).get()
             }
-            mBottomTabs.value = tabs.toMutableList().apply {
-                add(0, mFixTabs[0])
-                for (i in 1 until mFixTabs.size) {
-                    add(mFixTabs[i])
-                }
+            val pressBmp = withContext(Dispatchers.IO) {
+                Picasso.with(getApplication()).load(it.newTabIconUrlPressed).resize(size, size).get()
+            }
+            LocalRBTab(BitmapDrawable(resources, normalBmp), BitmapDrawable(resources, pressBmp), it.tabName, it.tabId.hashCode())
+        }
+        mBottomTabs.value = tabs.toMutableList().apply {
+            add(0, mFixTabs[0])
+            for (i in 1 until mFixTabs.size) {
+                add(mFixTabs[i])
             }
         }
     }

@@ -6,6 +6,7 @@ import mikasa.ackerman.ttd.host.base.ui.LocalRBTab
 import mikasa.ackerman.ttd.host.base.ui.RBTab
 import mikasa.ackerman.ttd.host.home.viewmodel.HomeViewModel
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
+import mikasa.ackerman.ttd.host.network.ArticleCategoryService
 import mikasa.ackerman.ttd.host.network.BottomTabService
 import mikasa.ackerman.ttd.host.network.SearchSuggestionService
 import okhttp3.OkHttpClient
@@ -61,10 +62,13 @@ val serviceModule = module {
     single<SearchSuggestionService> {
         get<Retrofit>().create(SearchSuggestionService::class.java)
     }
+    single<ArticleCategoryService> {
+        get<Retrofit>().create(ArticleCategoryService::class.java)
+    }
 }
 
 val vmModule = module {
     viewModel { HomeViewModel(androidApplication(), get(), get()) }
-    viewModel { IndexViewModel(androidApplication(), get()) }
+    viewModel { IndexViewModel(androidApplication(), get(), get()) }
 }
 val appModule = listOf(singleModule, vmModule, serviceModule)

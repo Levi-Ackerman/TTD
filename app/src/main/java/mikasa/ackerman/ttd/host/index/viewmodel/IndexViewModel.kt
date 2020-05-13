@@ -11,7 +11,9 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
+import mikasa.ackerman.ttd.host.network.ArticleCategoryService
 import mikasa.ackerman.ttd.host.network.SearchSuggestionService
+import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.pojo.SearchSuggests
 
 /**
@@ -21,21 +23,27 @@ import mikasa.ackerman.ttd.host.pojo.SearchSuggests
  *
  * @date 2020/05/10
  */
-class IndexViewModel(app: Application, val mSearchSuggestionService: SearchSuggestionService) : BaseViewModel(app) {
-    val mSearchSuggests = MutableLiveData<List<SearchSuggests.Data.SuggestWords>>()
+class IndexViewModel(app: Application, val mSearchSuggestionService: SearchSuggestionService, val mArticleCategoryService: ArticleCategoryService) : BaseViewModel(app) {
+    private val mArticleCategory = MutableLiveData<List<ArticleCategories.DataX.Data>>()
+    private val mSearchSuggests = MutableLiveData<List<SearchSuggests.Data.SuggestWords>>()
 
     var searchSuggestsText = MutableLiveData<String>()
 
     fun loadSearchSuggests() {
         viewModelScope.launch {
-            val a = async {
+            val searchSuggestResp = async {
                 withContext(Dispatchers.IO) {
-                    val response = mSearchSuggestionService.searchSuggestion().execute()
-                    response
+                    mSearchSuggestionService.searchSuggestion().execute()
                 }
             }
 
-            mSearchSuggests.value = with(a.await()) {
+            val articleCategoryResp = async {
+                withContext(Dispatchers.IO) {
+                    mArticleCategoryService.getCategories().execute()
+                }
+            }
+
+            mSearchSuggests.value = with(searchSuggestResp.await()) {
                 val list = if (isSuccessful) {
                     body()?.getContent()
                 } else {
@@ -45,6 +53,14 @@ class IndexViewModel(app: Application, val mSearchSuggestionService: SearchSugge
                     it.word!!
                 }) ?: ""
                 list
+            }
+
+            mArticleCategory.value = with(articleCategoryResp.await()) {
+                if (isSuccessful) {
+                    body()?.getContent()
+                } else {
+                    listOf()
+                }
             }
         }
     }
