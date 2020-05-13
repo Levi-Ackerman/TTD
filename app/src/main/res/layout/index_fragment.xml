@@ -38,6 +38,9 @@
         </FrameLayout>
 
         <com.google.android.material.tabs.TabLayout
+            app:tabMode="scrollable"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorColor="@color/colorAccent"
             android:id="@+id/articleCategoryTab"
             android:layout_width="match_parent"
             app:tabTextColor="@color/colorAccent"
