@@ -487,7 +487,7 @@ class ArticleCategories : IPojo<List<DataX.Data?>?> {
              * hidden : 0
              */
             @SerializedName("parent_channel_id")
-            var parentChannelId = 0
+            var parentChannelId:Long = 0
 
             @SerializedName("channel_id")
             var channelId: Long = 0
