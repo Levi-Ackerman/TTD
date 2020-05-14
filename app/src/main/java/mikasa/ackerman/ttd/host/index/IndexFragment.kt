@@ -3,19 +3,21 @@
  */
 package mikasa.ackerman.ttd.host.index
 
+import android.util.Log
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.gson.Gson
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.IndexFragmentBinding
-import mikasa.ackerman.ttd.host.index.article.ArticleFragment
+import mikasa.ackerman.ttd.host.index.feed.FeedFragment
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
 import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.util.ViewUtil
-import java.lang.Exception
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -76,7 +78,9 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
         }
 
         override fun createFragment(position: Int): Fragment {
-                return ArticleFragment()
+            return FeedFragment().apply {
+                arguments = bundleOf("item" to mCategories[position])
+            }
         }
     }
 }

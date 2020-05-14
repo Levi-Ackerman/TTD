@@ -2,6 +2,7 @@ package mikasa.ackerman.ttd.host.pojo
 
 import com.google.gson.annotations.SerializedName
 import mikasa.ackerman.ttd.host.pojo.ArticleCategories.DataX
+import java.io.Serializable
 
 /**
  * TTD
@@ -459,7 +460,7 @@ class ArticleCategories : IPojo<List<DataX.Data?>?> {
         @SerializedName("update_reason")
         var updateReason: List<String>? = null
 
-        class Data {
+        class Data :Serializable{
             /**
              * parent_channel_id : 0
              * channel_id : 60021127260
@@ -551,7 +552,6 @@ class ArticleCategories : IPojo<List<DataX.Data?>?> {
 
             @SerializedName("hidden")
             var hidden = 0
-
         }
     }
 }
