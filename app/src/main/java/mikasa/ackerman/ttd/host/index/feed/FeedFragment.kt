@@ -97,7 +97,7 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>() {
                         //图片列表为空，则是右侧图片
                         return RIGHT_PIC_VIDEO_NEWS
                     }
-                    if (news.gallary_image_count === 3) {
+                    if (news.gallary_image_count == 3) {
                         //图片数为3，则为三图
                         THREE_PICS_NEWS
                     } else CENTER_SINGLE_PIC_NEWS
@@ -111,7 +111,7 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>() {
 
     }
 
-    class FeedViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+    class FeedViewHolder(private val mRootView: View) : RecyclerView.ViewHolder(mRootView) {
         init {
 
         }
