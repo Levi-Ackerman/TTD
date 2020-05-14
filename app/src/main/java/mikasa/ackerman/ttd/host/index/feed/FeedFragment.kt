@@ -3,6 +3,7 @@
  */
 package mikasa.ackerman.ttd.host.index.feed
 
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
@@ -13,7 +14,6 @@ import mikasa.ackerman.ttd.host.databinding.FeedFragmentBinding
 import mikasa.ackerman.ttd.host.index.feed.viewmodel.FeedViewModel
 import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.pojo.FeedItem
-import mikasa.ackerman.ttd.host.pojo.FeedList
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -47,6 +47,13 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>() {
     }
 
     class FeedAdapter :RecyclerView.Adapter<FeedViewHolder>(){
+        companion object{
+            const val TEXT_NEWS = 0
+            const val RIGHT_PIC_VIDEO_NEWS = 1
+            const val CENTER_SINGLE_PIC_VIDEO_NEWS = 2
+            const val THREE_PICS_NEWS = 3
+            const val CENTER_SINGLE_PIC_NEWS = 4
+        }
 
         val mDataItems = mutableListOf<FeedItem>()
 
@@ -67,10 +74,45 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>() {
 
         }
 
+        override fun getItemViewType(position: Int): Int {
+            val news = mDataItems[position]
+            if (news.isHasVideo) {
+                //如果有视频
+                if (news.videoStyle == 0) {
+                    //右侧视频
+                    return if (news.middleImage == null || TextUtils.isEmpty(news.middleImage.url)) {
+                         TEXT_NEWS
+                    } else  RIGHT_PIC_VIDEO_NEWS
+                } else if (news.videoStyle == 2) {
+                    //居中视频
+                    return CENTER_SINGLE_PIC_VIDEO_NEWS
+                }
+            } else {
+                //非视频新闻
+                return if (!news.isHasImage) {
+                    //纯文字新闻
+                    TEXT_NEWS
+                } else {
+                    if (news.imageList?.isEmpty() != false) {
+                        //图片列表为空，则是右侧图片
+                        return RIGHT_PIC_VIDEO_NEWS
+                    }
+                    if (news.gallary_image_count === 3) {
+                        //图片数为3，则为三图
+                        THREE_PICS_NEWS
+                    } else CENTER_SINGLE_PIC_NEWS
+
+                    //中间大图，右下角显示图数
+                }
+            }
+
+            return TEXT_NEWS
+        }
+
     }
 
-    class FeedViewHolder : RecyclerView.ViewHolder {
-        constructor(view:View):super(view){
+    class FeedViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        init {
 
         }
     }

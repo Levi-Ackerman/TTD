@@ -12,7 +12,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.annotations.SerializedName;
-import mikasa.ackerman.ttd.host.pojo.FeedItem;
 
 /**
  * TTD
@@ -123,6 +122,8 @@ public class FeedItem {
 
     @SerializedName("abstract")
     private String abstractX;
+    @SerializedName("images")
+    private List<String> imageUrls;
     @SerializedName("aggr_type")
     private int aggrType;
     @SerializedName("allow_download")
@@ -263,6 +264,14 @@ public class FeedItem {
     private List<ActionList> actionList;
     @SerializedName("filter_words")
     private List<FilterWords> filterWords;
+    @SerializedName("middle_image")
+    private ImageEntity mMiddleImage;
+    @SerializedName("image_list")
+    private List<ImageEntity> mImageList;
+    @SerializedName("has_image")
+    private boolean mHasImage;
+
+    public int gallary_image_count;
 
     public String getAbstractX() { return abstractX;}
 
@@ -549,6 +558,38 @@ public class FeedItem {
     public List<FilterWords> getFilterWords() { return filterWords;}
 
     public void setFilterWords(List<FilterWords> filterWords) { this.filterWords = filterWords;}
+
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
+    public ImageEntity getMiddleImage() {
+        return mMiddleImage;
+    }
+
+    public void setMiddleImage(ImageEntity middleImage) {
+        this.mMiddleImage = middleImage;
+    }
+
+    public List<ImageEntity> getImageList() {
+        return mImageList;
+    }
+
+    public void setImageList(List<ImageEntity> imageList) {
+        this.mImageList = imageList;
+    }
+
+    public boolean isHasImage() {
+        return mHasImage;
+    }
+
+    public void setHasImage(boolean hasImage) {
+        mHasImage = hasImage;
+    }
 
     public static class ForwardInfo {
         /**
