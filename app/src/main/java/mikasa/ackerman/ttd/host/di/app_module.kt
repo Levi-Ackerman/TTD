@@ -107,6 +107,6 @@ val vmModule = module {
     viewModel { IndexViewModel(androidApplication(), get(), get()) }
     viewModel { FeedViewModel(androidApplication(), get()) }
     viewModel { VideoViewModel(androidApplication(), get()) }
-    viewModel { FeedVideoViewModel(androidApplication()) }
+    viewModel { FeedVideoViewModel(androidApplication(), get()) }
 }
 val appModule = listOf(singleModule, vmModule, serviceModule)

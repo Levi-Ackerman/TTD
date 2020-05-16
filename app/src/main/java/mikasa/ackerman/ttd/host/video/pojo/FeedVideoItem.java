@@ -12,7 +12,6 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.annotations.SerializedName;
-import mikasa.ackerman.ttd.host.pojo.FeedItem;
 
 /**
  * TTD
@@ -35,6 +34,7 @@ import mikasa.ackerman.ttd.host.pojo.FeedItem;
  * 2020/5/16 4:53 PM
  */
 public class FeedVideoItem {
+
     public static class FeedVideoItemAdapter implements JsonDeserializer<FeedVideoItem>, JsonSerializer<FeedVideoItem> {
         public FeedVideoItemAdapter(Gson gson){
             this.mGson = gson;
@@ -43,7 +43,11 @@ public class FeedVideoItem {
         @Override
         public FeedVideoItem deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {
-            return mGson.fromJson(((JsonObject)json).get("content").getAsString(), FeedVideoItem.class);
+            return mGson.fromJson(((JsonObject)json).get("content").getAsString()
+                .replace("\\\"","\"")
+                .replace("}\"","}")
+                .replace("\"{","{")
+                , FeedVideoItem.class);
         }
 
         @Override
@@ -54,7 +58,7 @@ public class FeedVideoItem {
 
     /**
      * abstract : 一群人站棺材旁正为亲人举办葬礼 接下来发生诡异一幕
-     * action_extra : {"channel_id": 3431225546}
+     * action_extra : {"channel_id":3431225546}
      * action_list : [{"action":1,"desc":"","extra":{}},{"action":3,"desc":"","extra":{}},{"action":7,"desc":"",
      * "extra":{}},{"action":9,"desc":"","extra":{}}]
      * aggr_type : 1
@@ -185,11 +189,11 @@ public class FeedVideoItem {
      * "img_num":46,"uri":"30917000335262f143bfa","img_url":"http://p3.pstatp.com/origin/30917000335262f143bfa",
      * "img_x_size":236,"img_y_size":136,"img_x_len":10,"img_y_len":5,"duration":46.041667,"interval":1,"fext":"jpg"}
      * ],"fallback_api":"https://vas-lf-x.snssdk
-     * .com/video/fplay/1/b13293b46a1f4a3d1ebbba1b8210a847/v02004ba0000bqvopc51mik4saba10l0?aid=13\u0026key_seed=raPC
-     * %2FhzgyOTWmJMosNYC%2BBApROQiBc8Q8oWjc%2FuqNrw%3D\u0026logo_type=default\u0026ptoken=pgc_1080p\u0026stream_type
-     * =normal","key_seed":"raPC/hzgyOTWmJMosNYC+BApROQiBc8Q8oWjc/uqNrw=","video_list":{"video_1":{"definition":"360p
-     * ","quality":"normal","vtype":"mp4","vwidth":626,"vheight":360,"bitrate":318177,"codec_type":"h264",
-     * "size":1831191,
+     * .com/video/fplay/1/b13293b46a1f4a3d1ebbba1b8210a847/v02004ba0000bqvopc51mik4saba10l0?aid=13\\u0026key_seed
+     * =raPC%2FhzgyOTWmJMosNYC%2BBApROQiBc8Q8oWjc%2FuqNrw%3D\\u0026logo_type=default\\u0026ptoken=pgc_1080p
+     * \\u0026stream_type=normal","key_seed":"raPC/hzgyOTWmJMosNYC+BApROQiBc8Q8oWjc/uqNrw=","video_list":{"video_1":{
+     * "definition":"360p","quality":"normal","vtype":"mp4","vwidth":626,"vheight":360,"bitrate":318177,
+     * "codec_type":"h264","size":1831191,
      * "main_url
      * ":"aHR0cDovL3YyNi10dC5peGlndWEuY29tL2IwMzk0OTFmYjFkYTBhNjYxYTFkOTQ0N2RkZjI2MjE4LzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC9hMGIzZjYwOTFhMzY0ZGZmODE2ZGE3ZTMwMzY3YjZmOC8/YT0xMyZicj05MzAmYnQ9MzEwJmNyPTAmY3M9MCZkcj0wJmRzPTEmZXI9MCZsPTIwMjAwNTE2MTY0NzE4MDEwMDE0MDQ4MTMwMDNGMjREQkQmbHI9ZGVmYXVsdCZxcz0wJnJjPU16TmtaRGRzTkdaeWRETXpaRGN6TTBBcFpUa3pORE5vTXp4bE4yZzVhV1pvTkdkcExsOXdhR295YlhOZkxTMWZMUzl6Y3pSZ05pNHdZREV4WHpVMkxURXVNeTQ2WXclM0QlM0Qmdmw9JnZyPQ==","backup_url_1":"aHR0cDovL3YyNy10dC5peGlndWEuY29tLzQ1NTgyYjBmNGIxOTE1NmZiOTM0MTVhZTEwNjRkZjJlLzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC9hMGIzZjYwOTFhMzY0ZGZmODE2ZGE3ZTMwMzY3YjZmOC8/YT0xMyZicj05MzAmYnQ9MzEwJmNyPTAmY3M9MCZkcj0wJmRzPTEmZXI9MCZsPTIwMjAwNTE2MTY0NzE4MDEwMDE0MDQ4MTMwMDNGMjREQkQmbHI9ZGVmYXVsdCZxcz0wJnJjPU16TmtaRGRzTkdaeWRETXpaRGN6TTBBcFpUa3pORE5vTXp4bE4yZzVhV1pvTkdkcExsOXdhR295YlhOZkxTMWZMUzl6Y3pSZ05pNHdZREV4WHpVMkxURXVNeTQ2WXclM0QlM0Qmdmw9JnZyPQ==","url_expire":1589622485,"preload_size":327680,"preload_interval":45,"preload_min_step":5,"preload_max_step":10,"file_hash":"aa1c712641c71e1ad83a477ff6300a8f","file_id":"11e6c1f460e948bb9404ec0311096cb7","p2p_verify_url":"aHR0cDovL3YyNi10dC5peGlndWEuY29tL2Y1MDU0MTk3YzAxYzY0NmQ3MTU2OGI1N2VjZWY2YjhiLzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC8xNjNkNmU1OTY3Y2M0OTI4OTExY2QzYjc4MTA0OTEzYi8=","encrypt":false},"video_2":{"definition":"480p","quality":"normal","vtype":"mp4","vwidth":640,"vheight":368,"bitrate":332990,"codec_type":"h264","size":1916441,"main_url":"aHR0cDovL3YyNi10dC5peGlndWEuY29tLzE4NmJjNDhlZGY2YTVkOGFmNGZlOTY5ZTcyY2FjYzI0LzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwL2M0ZTJkMDY0NjZiODQyZjg5OGM5M2ZiMDZhOGUxNWI2Lz9hPTEzJmJyPTk3NSZidD0zMjUmY3I9MCZjcz0wJmRyPTAmZHM9MiZlcj0wJmw9MjAyMDA1MTYxNjQ3MTgwMTAwMTQwNDgxMzAwM0YyNERCRCZscj1kZWZhdWx0JnFzPTAmcmM9TXpOa1pEZHNOR1p5ZERNelpEY3pNMEFwT21sbFpEcG9OR1ZwTnp4a05EWnBOMmRwTGw5d2FHb3liWE5mTFMxZkxTOXpjekExTUM5ZU1EWTFOREJqWVM0dUxpODZZdyUzRCUzRCZ2bD0mdnI9","backup_url_1":"aHR0cDovL3YyNy10dC5peGlndWEuY29tLzRkMTdjZjYyMjM1ZGM0ODI3ZTUyYjU0ODUxZDNlY2RjLzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwL2M0ZTJkMDY0NjZiODQyZjg5OGM5M2ZiMDZhOGUxNWI2Lz9hPTEzJmJyPTk3NSZidD0zMjUmY3I9MCZjcz0wJmRyPTAmZHM9MiZlcj0wJmw9MjAyMDA1MTYxNjQ3MTgwMTAwMTQwNDgxMzAwM0YyNERCRCZscj1kZWZhdWx0JnFzPTAmcmM9TXpOa1pEZHNOR1p5ZERNelpEY3pNMEFwT21sbFpEcG9OR1ZwTnp4a05EWnBOMmRwTGw5d2FHb3liWE5mTFMxZkxTOXpjekExTUM5ZU1EWTFOREJqWVM0dUxpODZZdyUzRCUzRCZ2bD0mdnI9","url_expire":1589622485,"preload_size":327680,"preload_interval":45,"preload_min_step":5,"preload_max_step":10,"file_hash":"698606f51168c6fe712e95d7adab178c","file_id":"42f13111ad9f43f7b819e37aa2b3f873","p2p_verify_url":"aHR0cDovL3YyNi10dC5peGlndWEuY29tLzU3YWRmYjRlNGM2Yzg5MTRlMGYyZjYyODA5ZTc1NDQ4LzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwLzM2ZGE1NTQ0ZGY5ZDQxYzE4ZGI3OTBiMWQ1ZTcxYjdjLw==","encrypt":false}}}
      * video_proportion_article : 1.738888888888889
@@ -200,7 +204,7 @@ public class FeedVideoItem {
     @SerializedName("abstract")
     private String abstractX;
     @SerializedName("action_extra")
-    private String actionExtra;
+    private ActionExtra actionExtra;
     @SerializedName("aggr_type")
     private int aggrType;
     @SerializedName("allow_download")
@@ -304,7 +308,7 @@ public class FeedVideoItem {
     @SerializedName("play_biz_token")
     private String playBizToken;
     @SerializedName("pread_params")
-    private String preadParams;
+    private PreadParams preadParams;
     @SerializedName("publish_time")
     private int publishTime;
     @SerializedName("read_count")
@@ -368,7 +372,7 @@ public class FeedVideoItem {
     @SerializedName("video_like_count")
     private int videoLikeCount;
     @SerializedName("video_play_info")
-    private String videoPlayInfo;
+    private VideoPlayInfo videoPlayInfo;
     @SerializedName("video_proportion_article")
     private double videoProportionArticle;
     @SerializedName("video_style")
@@ -388,9 +392,9 @@ public class FeedVideoItem {
 
     public void setAbstractX(String abstractX) { this.abstractX = abstractX;}
 
-    public String getActionExtra() { return actionExtra;}
+    public ActionExtra getActionExtra() { return actionExtra;}
 
-    public void setActionExtra(String actionExtra) { this.actionExtra = actionExtra;}
+    public void setActionExtra(ActionExtra actionExtra) { this.actionExtra = actionExtra;}
 
     public int getAggrType() { return aggrType;}
 
@@ -598,9 +602,9 @@ public class FeedVideoItem {
 
     public void setPlayBizToken(String playBizToken) { this.playBizToken = playBizToken;}
 
-    public String getPreadParams() { return preadParams;}
+    public PreadParams getPreadParams() { return preadParams;}
 
-    public void setPreadParams(String preadParams) { this.preadParams = preadParams;}
+    public void setPreadParams(PreadParams preadParams) { this.preadParams = preadParams;}
 
     public int getPublishTime() { return publishTime;}
 
@@ -726,9 +730,9 @@ public class FeedVideoItem {
 
     public void setVideoLikeCount(int videoLikeCount) { this.videoLikeCount = videoLikeCount;}
 
-    public String getVideoPlayInfo() { return videoPlayInfo;}
+    public VideoPlayInfo getVideoPlayInfo() { return videoPlayInfo;}
 
-    public void setVideoPlayInfo(String videoPlayInfo) { this.videoPlayInfo = videoPlayInfo;}
+    public void setVideoPlayInfo(VideoPlayInfo videoPlayInfo) { this.videoPlayInfo = videoPlayInfo;}
 
     public double getVideoProportionArticle() { return videoProportionArticle;}
 
@@ -759,6 +763,20 @@ public class FeedVideoItem {
     public List<LargeImageList> getLargeImageList() { return largeImageList;}
 
     public void setLargeImageList(List<LargeImageList> largeImageList) { this.largeImageList = largeImageList;}
+
+
+    public static class ActionExtra {
+        /**
+         * channel_id : 3431225546
+         */
+
+        @SerializedName("channel_id")
+        private long channelId;
+
+        public long getChannelId() { return channelId;}
+
+        public void setChannelId(long channelId) { this.channelId = channelId;}
+    }
 
     public static class ForwardInfo {
         /**
@@ -953,6 +971,103 @@ public class FeedVideoItem {
 
             public void setUrl(String url) { this.url = url;}
         }
+    }
+
+    public static class PreadParams {
+        /**
+         * group_id : 6827330514471354894
+         * item_id : 6827330514471354894
+         * media_id : 1666749920870403
+         * channel_id : 3431225546
+         * category_tag : video_domestic
+         * from_category : video
+         * is_gov_article : false
+         * display_flags : 0
+         * review_comment_mode : 0
+         * group_source : 2
+         * categories : ["video_domestic/other","video_domestic","video_movie"]
+         * video_duration : 46
+         * rec_quality : 0
+         */
+
+        @SerializedName("group_id")
+        private long groupId;
+        @SerializedName("item_id")
+        private long itemId;
+        @SerializedName("media_id")
+        private long mediaId;
+        @SerializedName("channel_id")
+        private long channelId;
+        @SerializedName("category_tag")
+        private String categoryTag;
+        @SerializedName("from_category")
+        private String fromCategory;
+        @SerializedName("is_gov_article")
+        private boolean isGovArticle;
+        @SerializedName("display_flags")
+        private int displayFlags;
+        @SerializedName("review_comment_mode")
+        private int reviewCommentMode;
+        @SerializedName("group_source")
+        private int groupSource;
+        @SerializedName("video_duration")
+        private int videoDuration;
+        @SerializedName("rec_quality")
+        private int recQuality;
+        @SerializedName("categories")
+        private List<String> categories;
+
+        public long getGroupId() { return groupId;}
+
+        public void setGroupId(long groupId) { this.groupId = groupId;}
+
+        public long getItemId() { return itemId;}
+
+        public void setItemId(long itemId) { this.itemId = itemId;}
+
+        public long getMediaId() { return mediaId;}
+
+        public void setMediaId(long mediaId) { this.mediaId = mediaId;}
+
+        public long getChannelId() { return channelId;}
+
+        public void setChannelId(long channelId) { this.channelId = channelId;}
+
+        public String getCategoryTag() { return categoryTag;}
+
+        public void setCategoryTag(String categoryTag) { this.categoryTag = categoryTag;}
+
+        public String getFromCategory() { return fromCategory;}
+
+        public void setFromCategory(String fromCategory) { this.fromCategory = fromCategory;}
+
+        public boolean isIsGovArticle() { return isGovArticle;}
+
+        public void setIsGovArticle(boolean isGovArticle) { this.isGovArticle = isGovArticle;}
+
+        public int getDisplayFlags() { return displayFlags;}
+
+        public void setDisplayFlags(int displayFlags) { this.displayFlags = displayFlags;}
+
+        public int getReviewCommentMode() { return reviewCommentMode;}
+
+        public void setReviewCommentMode(int reviewCommentMode) { this.reviewCommentMode = reviewCommentMode;}
+
+        public int getGroupSource() { return groupSource;}
+
+        public void setGroupSource(int groupSource) { this.groupSource = groupSource;}
+
+        public int getVideoDuration() { return videoDuration;}
+
+        public void setVideoDuration(int videoDuration) { this.videoDuration = videoDuration;}
+
+        public int getRecQuality() { return recQuality;}
+
+        public void setRecQuality(int recQuality) { this.recQuality = recQuality;}
+
+        public List<String> getCategories() { return categories;}
+
+        public void setCategories(List<String> categories) { this.categories = categories;}
     }
 
     public static class ShareInfo {
@@ -1303,7 +1418,9 @@ public class FeedVideoItem {
              * height : 326
              * uri : video1609/tos-cn-p-0026/ab7b8f22d679e1ac5fb5c7a6637a05be
              * url : http://p8.pstatp.com/video1609/tos-cn-p-0026/ab7b8f22d679e1ac5fb5c7a6637a05be
-             * url_list : [{"url":"http://p8.pstatp.com/video1609/tos-cn-p-0026/ab7b8f22d679e1ac5fb5c7a6637a05be"},{"url":"http://pb3.pstatp.com/video1609/tos-cn-p-0026/ab7b8f22d679e1ac5fb5c7a6637a05be"},{"url":"http://pb3.pstatp.com/video1609/tos-cn-p-0026/ab7b8f22d679e1ac5fb5c7a6637a05be"}]
+             * url_list : [{"url":"http://p8.pstatp.com/video1609/tos-cn-p-0026/ab7b8f22d679e1ac5fb5c7a6637a05be"},{
+             * "url":"http://pb3.pstatp.com/video1609/tos-cn-p-0026/ab7b8f22d679e1ac5fb5c7a6637a05be"},{"url":"http
+             * ://pb3.pstatp.com/video1609/tos-cn-p-0026/ab7b8f22d679e1ac5fb5c7a6637a05be"}]
              * width : 580
              */
 
@@ -1350,6 +1467,475 @@ public class FeedVideoItem {
 
                 public void setUrl(String url) { this.url = url;}
             }
+        }
+    }
+
+    public static class VideoPlayInfo {
+        /**
+         * status : 10
+         * message : success
+         * enable_ssl : true
+         * video_id : v02004ba0000bqvopc51mik4saba10l0
+         * video_duration : 46.042
+         * media_type : video
+         * big_thumbs : [{"img_num":46,"uri":"30917000335262f143bfa","img_url":"http://p3.pstatp
+         * .com/origin/30917000335262f143bfa","img_x_size":236,"img_y_size":136,"img_x_len":10,"img_y_len":5,
+         * "duration":46.041667,"interval":1,"fext":"jpg"}]
+         * fallback_api : https://vas-lf-x.snssdk
+         * .com/video/fplay/1/b13293b46a1f4a3d1ebbba1b8210a847/v02004ba0000bqvopc51mik4saba10l0?aid=13\u0026key_seed
+         * =raPC%2FhzgyOTWmJMosNYC%2BBApROQiBc8Q8oWjc%2FuqNrw%3D\u0026logo_type=default\u0026ptoken=pgc_1080p
+         * \u0026stream_type=normal
+         * key_seed : raPC/hzgyOTWmJMosNYC+BApROQiBc8Q8oWjc/uqNrw=
+         * video_list : {"video_1":{"definition":"360p","quality":"normal","vtype":"mp4","vwidth":626,"vheight":360,
+         * "bitrate":318177,"codec_type":"h264","size":1831191,
+         * "main_url
+         * ":"aHR0cDovL3YyNi10dC5peGlndWEuY29tL2IwMzk0OTFmYjFkYTBhNjYxYTFkOTQ0N2RkZjI2MjE4LzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC9hMGIzZjYwOTFhMzY0ZGZmODE2ZGE3ZTMwMzY3YjZmOC8/YT0xMyZicj05MzAmYnQ9MzEwJmNyPTAmY3M9MCZkcj0wJmRzPTEmZXI9MCZsPTIwMjAwNTE2MTY0NzE4MDEwMDE0MDQ4MTMwMDNGMjREQkQmbHI9ZGVmYXVsdCZxcz0wJnJjPU16TmtaRGRzTkdaeWRETXpaRGN6TTBBcFpUa3pORE5vTXp4bE4yZzVhV1pvTkdkcExsOXdhR295YlhOZkxTMWZMUzl6Y3pSZ05pNHdZREV4WHpVMkxURXVNeTQ2WXclM0QlM0Qmdmw9JnZyPQ==","backup_url_1":"aHR0cDovL3YyNy10dC5peGlndWEuY29tLzQ1NTgyYjBmNGIxOTE1NmZiOTM0MTVhZTEwNjRkZjJlLzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC9hMGIzZjYwOTFhMzY0ZGZmODE2ZGE3ZTMwMzY3YjZmOC8/YT0xMyZicj05MzAmYnQ9MzEwJmNyPTAmY3M9MCZkcj0wJmRzPTEmZXI9MCZsPTIwMjAwNTE2MTY0NzE4MDEwMDE0MDQ4MTMwMDNGMjREQkQmbHI9ZGVmYXVsdCZxcz0wJnJjPU16TmtaRGRzTkdaeWRETXpaRGN6TTBBcFpUa3pORE5vTXp4bE4yZzVhV1pvTkdkcExsOXdhR295YlhOZkxTMWZMUzl6Y3pSZ05pNHdZREV4WHpVMkxURXVNeTQ2WXclM0QlM0Qmdmw9JnZyPQ==","url_expire":1589622485,"preload_size":327680,"preload_interval":45,"preload_min_step":5,"preload_max_step":10,"file_hash":"aa1c712641c71e1ad83a477ff6300a8f","file_id":"11e6c1f460e948bb9404ec0311096cb7","p2p_verify_url":"aHR0cDovL3YyNi10dC5peGlndWEuY29tL2Y1MDU0MTk3YzAxYzY0NmQ3MTU2OGI1N2VjZWY2YjhiLzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC8xNjNkNmU1OTY3Y2M0OTI4OTExY2QzYjc4MTA0OTEzYi8=","encrypt":false},"video_2":{"definition":"480p","quality":"normal","vtype":"mp4","vwidth":640,"vheight":368,"bitrate":332990,"codec_type":"h264","size":1916441,"main_url":"aHR0cDovL3YyNi10dC5peGlndWEuY29tLzE4NmJjNDhlZGY2YTVkOGFmNGZlOTY5ZTcyY2FjYzI0LzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwL2M0ZTJkMDY0NjZiODQyZjg5OGM5M2ZiMDZhOGUxNWI2Lz9hPTEzJmJyPTk3NSZidD0zMjUmY3I9MCZjcz0wJmRyPTAmZHM9MiZlcj0wJmw9MjAyMDA1MTYxNjQ3MTgwMTAwMTQwNDgxMzAwM0YyNERCRCZscj1kZWZhdWx0JnFzPTAmcmM9TXpOa1pEZHNOR1p5ZERNelpEY3pNMEFwT21sbFpEcG9OR1ZwTnp4a05EWnBOMmRwTGw5d2FHb3liWE5mTFMxZkxTOXpjekExTUM5ZU1EWTFOREJqWVM0dUxpODZZdyUzRCUzRCZ2bD0mdnI9","backup_url_1":"aHR0cDovL3YyNy10dC5peGlndWEuY29tLzRkMTdjZjYyMjM1ZGM0ODI3ZTUyYjU0ODUxZDNlY2RjLzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwL2M0ZTJkMDY0NjZiODQyZjg5OGM5M2ZiMDZhOGUxNWI2Lz9hPTEzJmJyPTk3NSZidD0zMjUmY3I9MCZjcz0wJmRyPTAmZHM9MiZlcj0wJmw9MjAyMDA1MTYxNjQ3MTgwMTAwMTQwNDgxMzAwM0YyNERCRCZscj1kZWZhdWx0JnFzPTAmcmM9TXpOa1pEZHNOR1p5ZERNelpEY3pNMEFwT21sbFpEcG9OR1ZwTnp4a05EWnBOMmRwTGw5d2FHb3liWE5mTFMxZkxTOXpjekExTUM5ZU1EWTFOREJqWVM0dUxpODZZdyUzRCUzRCZ2bD0mdnI9","url_expire":1589622485,"preload_size":327680,"preload_interval":45,"preload_min_step":5,"preload_max_step":10,"file_hash":"698606f51168c6fe712e95d7adab178c","file_id":"42f13111ad9f43f7b819e37aa2b3f873","p2p_verify_url":"aHR0cDovL3YyNi10dC5peGlndWEuY29tLzU3YWRmYjRlNGM2Yzg5MTRlMGYyZjYyODA5ZTc1NDQ4LzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwLzM2ZGE1NTQ0ZGY5ZDQxYzE4ZGI3OTBiMWQ1ZTcxYjdjLw==","encrypt":false}}
+         */
+
+        @SerializedName("status")
+        private int status;
+        @SerializedName("message")
+        private String message;
+        @SerializedName("enable_ssl")
+        private boolean enableSsl;
+        @SerializedName("video_id")
+        private String videoId;
+        @SerializedName("video_duration")
+        private double videoDuration;
+        @SerializedName("media_type")
+        private String mediaType;
+        @SerializedName("fallback_api")
+        private String fallbackApi;
+        @SerializedName("key_seed")
+        private String keySeed;
+        @SerializedName("video_list")
+        private VideoList videoList;
+        @SerializedName("big_thumbs")
+        private List<BigThumbs> bigThumbs;
+
+        public int getStatus() { return status;}
+
+        public void setStatus(int status) { this.status = status;}
+
+        public String getMessage() { return message;}
+
+        public void setMessage(String message) { this.message = message;}
+
+        public boolean isEnableSsl() { return enableSsl;}
+
+        public void setEnableSsl(boolean enableSsl) { this.enableSsl = enableSsl;}
+
+        public String getVideoId() { return videoId;}
+
+        public void setVideoId(String videoId) { this.videoId = videoId;}
+
+        public double getVideoDuration() { return videoDuration;}
+
+        public void setVideoDuration(double videoDuration) { this.videoDuration = videoDuration;}
+
+        public String getMediaType() { return mediaType;}
+
+        public void setMediaType(String mediaType) { this.mediaType = mediaType;}
+
+        public String getFallbackApi() { return fallbackApi;}
+
+        public void setFallbackApi(String fallbackApi) { this.fallbackApi = fallbackApi;}
+
+        public String getKeySeed() { return keySeed;}
+
+        public void setKeySeed(String keySeed) { this.keySeed = keySeed;}
+
+        public VideoList getVideoList() { return videoList;}
+
+        public void setVideoList(VideoList videoList) { this.videoList = videoList;}
+
+        public List<BigThumbs> getBigThumbs() { return bigThumbs;}
+
+        public void setBigThumbs(List<BigThumbs> bigThumbs) { this.bigThumbs = bigThumbs;}
+
+        public static class VideoList {
+            /**
+             * video_1 : {"definition":"360p","quality":"normal","vtype":"mp4","vwidth":626,"vheight":360,
+             * "bitrate":318177,"codec_type":"h264","size":1831191,
+             * "main_url
+             * ":"aHR0cDovL3YyNi10dC5peGlndWEuY29tL2IwMzk0OTFmYjFkYTBhNjYxYTFkOTQ0N2RkZjI2MjE4LzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC9hMGIzZjYwOTFhMzY0ZGZmODE2ZGE3ZTMwMzY3YjZmOC8/YT0xMyZicj05MzAmYnQ9MzEwJmNyPTAmY3M9MCZkcj0wJmRzPTEmZXI9MCZsPTIwMjAwNTE2MTY0NzE4MDEwMDE0MDQ4MTMwMDNGMjREQkQmbHI9ZGVmYXVsdCZxcz0wJnJjPU16TmtaRGRzTkdaeWRETXpaRGN6TTBBcFpUa3pORE5vTXp4bE4yZzVhV1pvTkdkcExsOXdhR295YlhOZkxTMWZMUzl6Y3pSZ05pNHdZREV4WHpVMkxURXVNeTQ2WXclM0QlM0Qmdmw9JnZyPQ==","backup_url_1":"aHR0cDovL3YyNy10dC5peGlndWEuY29tLzQ1NTgyYjBmNGIxOTE1NmZiOTM0MTVhZTEwNjRkZjJlLzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC9hMGIzZjYwOTFhMzY0ZGZmODE2ZGE3ZTMwMzY3YjZmOC8/YT0xMyZicj05MzAmYnQ9MzEwJmNyPTAmY3M9MCZkcj0wJmRzPTEmZXI9MCZsPTIwMjAwNTE2MTY0NzE4MDEwMDE0MDQ4MTMwMDNGMjREQkQmbHI9ZGVmYXVsdCZxcz0wJnJjPU16TmtaRGRzTkdaeWRETXpaRGN6TTBBcFpUa3pORE5vTXp4bE4yZzVhV1pvTkdkcExsOXdhR295YlhOZkxTMWZMUzl6Y3pSZ05pNHdZREV4WHpVMkxURXVNeTQ2WXclM0QlM0Qmdmw9JnZyPQ==","url_expire":1589622485,"preload_size":327680,"preload_interval":45,"preload_min_step":5,"preload_max_step":10,"file_hash":"aa1c712641c71e1ad83a477ff6300a8f","file_id":"11e6c1f460e948bb9404ec0311096cb7","p2p_verify_url":"aHR0cDovL3YyNi10dC5peGlndWEuY29tL2Y1MDU0MTk3YzAxYzY0NmQ3MTU2OGI1N2VjZWY2YjhiLzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC8xNjNkNmU1OTY3Y2M0OTI4OTExY2QzYjc4MTA0OTEzYi8=","encrypt":false}
+             * video_2 : {"definition":"480p","quality":"normal","vtype":"mp4","vwidth":640,"vheight":368,
+             * "bitrate":332990,"codec_type":"h264","size":1916441,
+             * "main_url
+             * ":"aHR0cDovL3YyNi10dC5peGlndWEuY29tLzE4NmJjNDhlZGY2YTVkOGFmNGZlOTY5ZTcyY2FjYzI0LzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwL2M0ZTJkMDY0NjZiODQyZjg5OGM5M2ZiMDZhOGUxNWI2Lz9hPTEzJmJyPTk3NSZidD0zMjUmY3I9MCZjcz0wJmRyPTAmZHM9MiZlcj0wJmw9MjAyMDA1MTYxNjQ3MTgwMTAwMTQwNDgxMzAwM0YyNERCRCZscj1kZWZhdWx0JnFzPTAmcmM9TXpOa1pEZHNOR1p5ZERNelpEY3pNMEFwT21sbFpEcG9OR1ZwTnp4a05EWnBOMmRwTGw5d2FHb3liWE5mTFMxZkxTOXpjekExTUM5ZU1EWTFOREJqWVM0dUxpODZZdyUzRCUzRCZ2bD0mdnI9","backup_url_1":"aHR0cDovL3YyNy10dC5peGlndWEuY29tLzRkMTdjZjYyMjM1ZGM0ODI3ZTUyYjU0ODUxZDNlY2RjLzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwL2M0ZTJkMDY0NjZiODQyZjg5OGM5M2ZiMDZhOGUxNWI2Lz9hPTEzJmJyPTk3NSZidD0zMjUmY3I9MCZjcz0wJmRyPTAmZHM9MiZlcj0wJmw9MjAyMDA1MTYxNjQ3MTgwMTAwMTQwNDgxMzAwM0YyNERCRCZscj1kZWZhdWx0JnFzPTAmcmM9TXpOa1pEZHNOR1p5ZERNelpEY3pNMEFwT21sbFpEcG9OR1ZwTnp4a05EWnBOMmRwTGw5d2FHb3liWE5mTFMxZkxTOXpjekExTUM5ZU1EWTFOREJqWVM0dUxpODZZdyUzRCUzRCZ2bD0mdnI9","url_expire":1589622485,"preload_size":327680,"preload_interval":45,"preload_min_step":5,"preload_max_step":10,"file_hash":"698606f51168c6fe712e95d7adab178c","file_id":"42f13111ad9f43f7b819e37aa2b3f873","p2p_verify_url":"aHR0cDovL3YyNi10dC5peGlndWEuY29tLzU3YWRmYjRlNGM2Yzg5MTRlMGYyZjYyODA5ZTc1NDQ4LzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwLzM2ZGE1NTQ0ZGY5ZDQxYzE4ZGI3OTBiMWQ1ZTcxYjdjLw==","encrypt":false}
+             */
+
+            @SerializedName("video_1")
+            private Video1 video1;
+            @SerializedName("video_2")
+            private Video2 video2;
+
+            public Video1 getVideo1() { return video1;}
+
+            public void setVideo1(Video1 video1) { this.video1 = video1;}
+
+            public Video2 getVideo2() { return video2;}
+
+            public void setVideo2(Video2 video2) { this.video2 = video2;}
+
+            public static class Video1 {
+                /**
+                 * definition : 360p
+                 * quality : normal
+                 * vtype : mp4
+                 * vwidth : 626
+                 * vheight : 360
+                 * bitrate : 318177
+                 * codec_type : h264
+                 * size : 1831191
+                 * main_url :
+                 * aHR0cDovL3YyNi10dC5peGlndWEuY29tL2IwMzk0OTFmYjFkYTBhNjYxYTFkOTQ0N2RkZjI2MjE4LzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC9hMGIzZjYwOTFhMzY0ZGZmODE2ZGE3ZTMwMzY3YjZmOC8/YT0xMyZicj05MzAmYnQ9MzEwJmNyPTAmY3M9MCZkcj0wJmRzPTEmZXI9MCZsPTIwMjAwNTE2MTY0NzE4MDEwMDE0MDQ4MTMwMDNGMjREQkQmbHI9ZGVmYXVsdCZxcz0wJnJjPU16TmtaRGRzTkdaeWRETXpaRGN6TTBBcFpUa3pORE5vTXp4bE4yZzVhV1pvTkdkcExsOXdhR295YlhOZkxTMWZMUzl6Y3pSZ05pNHdZREV4WHpVMkxURXVNeTQ2WXclM0QlM0Qmdmw9JnZyPQ==
+                 * backup_url_1 :
+                 * aHR0cDovL3YyNy10dC5peGlndWEuY29tLzQ1NTgyYjBmNGIxOTE1NmZiOTM0MTVhZTEwNjRkZjJlLzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC9hMGIzZjYwOTFhMzY0ZGZmODE2ZGE3ZTMwMzY3YjZmOC8/YT0xMyZicj05MzAmYnQ9MzEwJmNyPTAmY3M9MCZkcj0wJmRzPTEmZXI9MCZsPTIwMjAwNTE2MTY0NzE4MDEwMDE0MDQ4MTMwMDNGMjREQkQmbHI9ZGVmYXVsdCZxcz0wJnJjPU16TmtaRGRzTkdaeWRETXpaRGN6TTBBcFpUa3pORE5vTXp4bE4yZzVhV1pvTkdkcExsOXdhR295YlhOZkxTMWZMUzl6Y3pSZ05pNHdZREV4WHpVMkxURXVNeTQ2WXclM0QlM0Qmdmw9JnZyPQ==
+                 * url_expire : 1589622485
+                 * preload_size : 327680
+                 * preload_interval : 45
+                 * preload_min_step : 5
+                 * preload_max_step : 10
+                 * file_hash : aa1c712641c71e1ad83a477ff6300a8f
+                 * file_id : 11e6c1f460e948bb9404ec0311096cb7
+                 * p2p_verify_url :
+                 * aHR0cDovL3YyNi10dC5peGlndWEuY29tL2Y1MDU0MTk3YzAxYzY0NmQ3MTU2OGI1N2VjZWY2YjhiLzVlYmZiNmQ1L3ZpZGVvL3Rvcy9jbi90b3MtY24tdmUtNC8xNjNkNmU1OTY3Y2M0OTI4OTExY2QzYjc4MTA0OTEzYi8=
+                 * encrypt : false
+                 */
+
+                @SerializedName("definition")
+                private String definition;
+                @SerializedName("quality")
+                private String quality;
+                @SerializedName("vtype")
+                private String vtype;
+                @SerializedName("vwidth")
+                private int vwidth;
+                @SerializedName("vheight")
+                private int vheight;
+                @SerializedName("bitrate")
+                private int bitrate;
+                @SerializedName("codec_type")
+                private String codecType;
+                @SerializedName("size")
+                private int size;
+                @SerializedName("main_url")
+                private String mainUrl;
+                @SerializedName("backup_url_1")
+                private String backupUrl1;
+                @SerializedName("url_expire")
+                private int urlExpire;
+                @SerializedName("preload_size")
+                private int preloadSize;
+                @SerializedName("preload_interval")
+                private int preloadInterval;
+                @SerializedName("preload_min_step")
+                private int preloadMinStep;
+                @SerializedName("preload_max_step")
+                private int preloadMaxStep;
+                @SerializedName("file_hash")
+                private String fileHash;
+                @SerializedName("file_id")
+                private String fileId;
+                @SerializedName("p2p_verify_url")
+                private String p2pVerifyUrl;
+                @SerializedName("encrypt")
+                private boolean encrypt;
+
+                public String getDefinition() { return definition;}
+
+                public void setDefinition(String definition) { this.definition = definition;}
+
+                public String getQuality() { return quality;}
+
+                public void setQuality(String quality) { this.quality = quality;}
+
+                public String getVtype() { return vtype;}
+
+                public void setVtype(String vtype) { this.vtype = vtype;}
+
+                public int getVwidth() { return vwidth;}
+
+                public void setVwidth(int vwidth) { this.vwidth = vwidth;}
+
+                public int getVheight() { return vheight;}
+
+                public void setVheight(int vheight) { this.vheight = vheight;}
+
+                public int getBitrate() { return bitrate;}
+
+                public void setBitrate(int bitrate) { this.bitrate = bitrate;}
+
+                public String getCodecType() { return codecType;}
+
+                public void setCodecType(String codecType) { this.codecType = codecType;}
+
+                public int getSize() { return size;}
+
+                public void setSize(int size) { this.size = size;}
+
+                public String getMainUrl() { return mainUrl;}
+
+                public void setMainUrl(String mainUrl) { this.mainUrl = mainUrl;}
+
+                public String getBackupUrl1() { return backupUrl1;}
+
+                public void setBackupUrl1(String backupUrl1) { this.backupUrl1 = backupUrl1;}
+
+                public int getUrlExpire() { return urlExpire;}
+
+                public void setUrlExpire(int urlExpire) { this.urlExpire = urlExpire;}
+
+                public int getPreloadSize() { return preloadSize;}
+
+                public void setPreloadSize(int preloadSize) { this.preloadSize = preloadSize;}
+
+                public int getPreloadInterval() { return preloadInterval;}
+
+                public void setPreloadInterval(int preloadInterval) { this.preloadInterval = preloadInterval;}
+
+                public int getPreloadMinStep() { return preloadMinStep;}
+
+                public void setPreloadMinStep(int preloadMinStep) { this.preloadMinStep = preloadMinStep;}
+
+                public int getPreloadMaxStep() { return preloadMaxStep;}
+
+                public void setPreloadMaxStep(int preloadMaxStep) { this.preloadMaxStep = preloadMaxStep;}
+
+                public String getFileHash() { return fileHash;}
+
+                public void setFileHash(String fileHash) { this.fileHash = fileHash;}
+
+                public String getFileId() { return fileId;}
+
+                public void setFileId(String fileId) { this.fileId = fileId;}
+
+                public String getP2pVerifyUrl() { return p2pVerifyUrl;}
+
+                public void setP2pVerifyUrl(String p2pVerifyUrl) { this.p2pVerifyUrl = p2pVerifyUrl;}
+
+                public boolean isEncrypt() { return encrypt;}
+
+                public void setEncrypt(boolean encrypt) { this.encrypt = encrypt;}
+            }
+
+            public static class Video2 {
+                /**
+                 * definition : 480p
+                 * quality : normal
+                 * vtype : mp4
+                 * vwidth : 640
+                 * vheight : 368
+                 * bitrate : 332990
+                 * codec_type : h264
+                 * size : 1916441
+                 * main_url :
+                 * aHR0cDovL3YyNi10dC5peGlndWEuY29tLzE4NmJjNDhlZGY2YTVkOGFmNGZlOTY5ZTcyY2FjYzI0LzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwL2M0ZTJkMDY0NjZiODQyZjg5OGM5M2ZiMDZhOGUxNWI2Lz9hPTEzJmJyPTk3NSZidD0zMjUmY3I9MCZjcz0wJmRyPTAmZHM9MiZlcj0wJmw9MjAyMDA1MTYxNjQ3MTgwMTAwMTQwNDgxMzAwM0YyNERCRCZscj1kZWZhdWx0JnFzPTAmcmM9TXpOa1pEZHNOR1p5ZERNelpEY3pNMEFwT21sbFpEcG9OR1ZwTnp4a05EWnBOMmRwTGw5d2FHb3liWE5mTFMxZkxTOXpjekExTUM5ZU1EWTFOREJqWVM0dUxpODZZdyUzRCUzRCZ2bD0mdnI9
+                 * backup_url_1 :
+                 * aHR0cDovL3YyNy10dC5peGlndWEuY29tLzRkMTdjZjYyMjM1ZGM0ODI3ZTUyYjU0ODUxZDNlY2RjLzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwL2M0ZTJkMDY0NjZiODQyZjg5OGM5M2ZiMDZhOGUxNWI2Lz9hPTEzJmJyPTk3NSZidD0zMjUmY3I9MCZjcz0wJmRyPTAmZHM9MiZlcj0wJmw9MjAyMDA1MTYxNjQ3MTgwMTAwMTQwNDgxMzAwM0YyNERCRCZscj1kZWZhdWx0JnFzPTAmcmM9TXpOa1pEZHNOR1p5ZERNelpEY3pNMEFwT21sbFpEcG9OR1ZwTnp4a05EWnBOMmRwTGw5d2FHb3liWE5mTFMxZkxTOXpjekExTUM5ZU1EWTFOREJqWVM0dUxpODZZdyUzRCUzRCZ2bD0mdnI9
+                 * url_expire : 1589622485
+                 * preload_size : 327680
+                 * preload_interval : 45
+                 * preload_min_step : 5
+                 * preload_max_step : 10
+                 * file_hash : 698606f51168c6fe712e95d7adab178c
+                 * file_id : 42f13111ad9f43f7b819e37aa2b3f873
+                 * p2p_verify_url : aHR0cDovL3YyNi10dC5peGlndWEuY29tLzU3YWRmYjRlNGM2Yzg5MTRlMGYyZjYyODA5ZTc1NDQ4LzVlYmZiNmQ1L3ZpZGVvL24vdG9zZWRnZS10b3MtYWdzeS12ZS0wMDAwLzM2ZGE1NTQ0ZGY5ZDQxYzE4ZGI3OTBiMWQ1ZTcxYjdjLw==
+                 * encrypt : false
+                 */
+
+                @SerializedName("definition")
+                private String definition;
+                @SerializedName("quality")
+                private String quality;
+                @SerializedName("vtype")
+                private String vtype;
+                @SerializedName("vwidth")
+                private int vwidth;
+                @SerializedName("vheight")
+                private int vheight;
+                @SerializedName("bitrate")
+                private int bitrate;
+                @SerializedName("codec_type")
+                private String codecType;
+                @SerializedName("size")
+                private int size;
+                @SerializedName("main_url")
+                private String mainUrl;
+                @SerializedName("backup_url_1")
+                private String backupUrl1;
+                @SerializedName("url_expire")
+                private int urlExpire;
+                @SerializedName("preload_size")
+                private int preloadSize;
+                @SerializedName("preload_interval")
+                private int preloadInterval;
+                @SerializedName("preload_min_step")
+                private int preloadMinStep;
+                @SerializedName("preload_max_step")
+                private int preloadMaxStep;
+                @SerializedName("file_hash")
+                private String fileHash;
+                @SerializedName("file_id")
+                private String fileId;
+                @SerializedName("p2p_verify_url")
+                private String p2pVerifyUrl;
+                @SerializedName("encrypt")
+                private boolean encrypt;
+
+                public String getDefinition() { return definition;}
+
+                public void setDefinition(String definition) { this.definition = definition;}
+
+                public String getQuality() { return quality;}
+
+                public void setQuality(String quality) { this.quality = quality;}
+
+                public String getVtype() { return vtype;}
+
+                public void setVtype(String vtype) { this.vtype = vtype;}
+
+                public int getVwidth() { return vwidth;}
+
+                public void setVwidth(int vwidth) { this.vwidth = vwidth;}
+
+                public int getVheight() { return vheight;}
+
+                public void setVheight(int vheight) { this.vheight = vheight;}
+
+                public int getBitrate() { return bitrate;}
+
+                public void setBitrate(int bitrate) { this.bitrate = bitrate;}
+
+                public String getCodecType() { return codecType;}
+
+                public void setCodecType(String codecType) { this.codecType = codecType;}
+
+                public int getSize() { return size;}
+
+                public void setSize(int size) { this.size = size;}
+
+                public String getMainUrl() { return mainUrl;}
+
+                public void setMainUrl(String mainUrl) { this.mainUrl = mainUrl;}
+
+                public String getBackupUrl1() { return backupUrl1;}
+
+                public void setBackupUrl1(String backupUrl1) { this.backupUrl1 = backupUrl1;}
+
+                public int getUrlExpire() { return urlExpire;}
+
+                public void setUrlExpire(int urlExpire) { this.urlExpire = urlExpire;}
+
+                public int getPreloadSize() { return preloadSize;}
+
+                public void setPreloadSize(int preloadSize) { this.preloadSize = preloadSize;}
+
+                public int getPreloadInterval() { return preloadInterval;}
+
+                public void setPreloadInterval(int preloadInterval) { this.preloadInterval = preloadInterval;}
+
+                public int getPreloadMinStep() { return preloadMinStep;}
+
+                public void setPreloadMinStep(int preloadMinStep) { this.preloadMinStep = preloadMinStep;}
+
+                public int getPreloadMaxStep() { return preloadMaxStep;}
+
+                public void setPreloadMaxStep(int preloadMaxStep) { this.preloadMaxStep = preloadMaxStep;}
+
+                public String getFileHash() { return fileHash;}
+
+                public void setFileHash(String fileHash) { this.fileHash = fileHash;}
+
+                public String getFileId() { return fileId;}
+
+                public void setFileId(String fileId) { this.fileId = fileId;}
+
+                public String getP2pVerifyUrl() { return p2pVerifyUrl;}
+
+                public void setP2pVerifyUrl(String p2pVerifyUrl) { this.p2pVerifyUrl = p2pVerifyUrl;}
+
+                public boolean isEncrypt() { return encrypt;}
+
+                public void setEncrypt(boolean encrypt) { this.encrypt = encrypt;}
+            }
+        }
+
+        public static class BigThumbs {
+            /**
+             * img_num : 46
+             * uri : 30917000335262f143bfa
+             * img_url : http://p3.pstatp.com/origin/30917000335262f143bfa
+             * img_x_size : 236
+             * img_y_size : 136
+             * img_x_len : 10
+             * img_y_len : 5
+             * duration : 46.041667
+             * interval : 1
+             * fext : jpg
+             */
+
+            @SerializedName("img_num")
+            private int imgNum;
+            @SerializedName("uri")
+            private String uri;
+            @SerializedName("img_url")
+            private String imgUrl;
+            @SerializedName("img_x_size")
+            private int imgXSize;
+            @SerializedName("img_y_size")
+            private int imgYSize;
+            @SerializedName("img_x_len")
+            private int imgXLen;
+            @SerializedName("img_y_len")
+            private int imgYLen;
+            @SerializedName("duration")
+            private double duration;
+            @SerializedName("interval")
+            private int interval;
+            @SerializedName("fext")
+            private String fext;
+
+            public int getImgNum() { return imgNum;}
+
+            public void setImgNum(int imgNum) { this.imgNum = imgNum;}
+
+            public String getUri() { return uri;}
+
+            public void setUri(String uri) { this.uri = uri;}
+
+            public String getImgUrl() { return imgUrl;}
+
+            public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl;}
+
+            public int getImgXSize() { return imgXSize;}
+
+            public void setImgXSize(int imgXSize) { this.imgXSize = imgXSize;}
+
+            public int getImgYSize() { return imgYSize;}
+
+            public void setImgYSize(int imgYSize) { this.imgYSize = imgYSize;}
+
+            public int getImgXLen() { return imgXLen;}
+
+            public void setImgXLen(int imgXLen) { this.imgXLen = imgXLen;}
+
+            public int getImgYLen() { return imgYLen;}
+
+            public void setImgYLen(int imgYLen) { this.imgYLen = imgYLen;}
+
+            public double getDuration() { return duration;}
+
+            public void setDuration(double duration) { this.duration = duration;}
+
+            public int getInterval() { return interval;}
+
+            public void setInterval(int interval) { this.interval = interval;}
+
+            public String getFext() { return fext;}
+
+            public void setFext(String fext) { this.fext = fext;}
         }
     }
 

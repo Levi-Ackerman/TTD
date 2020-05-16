@@ -3,6 +3,7 @@
  */
 package mikasa.ackerman.ttd.host.video.feed
 
+import androidx.lifecycle.Observer
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.FeedVideoFragmentBinding
@@ -25,10 +26,12 @@ class FeedVideoFragment : BaseFragment<FeedVideoFragmentBinding>() {
     }
 
     override fun loadData(isRefresh: Boolean) {
-
+        mViewModel.loadData(isRefresh)
     }
 
     override fun bindVm() {
+        mViewModel.videoItems.observe(this, Observer {
 
+        })
     }
 }
