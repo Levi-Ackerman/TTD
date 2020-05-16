@@ -1,7 +1,10 @@
 package mikasa.ackerman.ttd.host.network;
 
+import mikasa.ackerman.ttd.host.pojo.entity.NewsDetail;
+import mikasa.ackerman.ttd.host.pojo.entity.VideoModel;
 import mikasa.ackerman.ttd.host.pojo.response.CommentResponse;
 import mikasa.ackerman.ttd.host.pojo.response.NewsResponse;
+import mikasa.ackerman.ttd.host.pojo.response.ResultResponse;
 import mikasa.ackerman.ttd.host.pojo.response.VideoPathResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;

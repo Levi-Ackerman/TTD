@@ -2,9 +2,9 @@ package mikasa.ackerman.ttd.host.pojo.response;
 
 import java.util.List;
 
-import com.chaychan.news.model.entity.NewsData;
-import com.chaychan.news.model.entity.TipEntity;
 import com.google.gson.Gson;
+import mikasa.ackerman.ttd.host.pojo.entity.NewsData;
+import mikasa.ackerman.ttd.host.pojo.entity.TipEntity;
 
 /**
  * @author ChayChan

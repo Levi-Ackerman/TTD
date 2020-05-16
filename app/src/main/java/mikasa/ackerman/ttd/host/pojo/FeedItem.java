@@ -1013,7 +1013,10 @@ public class FeedItem {
     }
 
     public static class FeedItemAdapter implements JsonDeserializer<FeedItem> , JsonSerializer<FeedItem>{
-        private static final Gson mGson = new Gson();
+        public FeedItemAdapter(Gson gson){
+            this.mGson = gson;
+        }
+        private final Gson mGson ;
         @Override
         public FeedItem deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
             throws JsonParseException {

@@ -9,12 +9,13 @@ import mikasa.ackerman.ttd.host.base.ui.RBTab
 import mikasa.ackerman.ttd.host.home.viewmodel.HomeViewModel
 import mikasa.ackerman.ttd.host.index.feed.viewmodel.FeedViewModel
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
-import mikasa.ackerman.ttd.host.network.ArticleCategoryService
-import mikasa.ackerman.ttd.host.network.BottomTabService
-import mikasa.ackerman.ttd.host.network.FeedService
-import mikasa.ackerman.ttd.host.network.SearchSuggestionService
+import mikasa.ackerman.ttd.host.network.*
 import mikasa.ackerman.ttd.host.pojo.FeedItem
 import mikasa.ackerman.ttd.host.pojo.FeedList
+import mikasa.ackerman.ttd.host.video.feed.viewmodel.FeedVideoViewModel
+import mikasa.ackerman.ttd.host.video.model.VideoFeedService
+import mikasa.ackerman.ttd.host.video.pojo.FeedVideoItem
+import mikasa.ackerman.ttd.host.video.viewmodel.VideoViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -52,20 +53,22 @@ val singleModule = module {
                 LocalRBTab(get<Context>().resources.getDrawable(R.drawable.tab_me_normal),
                         get<Context>().resources.getDrawable(R.drawable.tab_me_selected), "我的", 2))
     }
-    single<FeedItem.FeedItemAdapter> {
-        FeedItem.FeedItemAdapter()
-    }
     single<Gson> {
+        val gson = Gson()
         GsonBuilder()
-                .registerTypeAdapter(FeedItem::class.java, get<FeedItem.FeedItemAdapter>())
+                .registerTypeAdapter(FeedItem::class.java, FeedItem.FeedItemAdapter(gson))
+                .registerTypeAdapter(FeedVideoItem::class.java, FeedVideoItem.FeedVideoItemAdapter(gson))
                 .create()
     }
     single<Retrofit> {
         Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(get()))
                 .baseUrl(BASE_URL)
-                .client(OkHttpClient())
+                .client(get())
                 .build()
+    }
+    single {
+        OkHttpClient()
     }
 }
 
@@ -82,11 +85,28 @@ val serviceModule = module {
     single<FeedService> {
         get<Retrofit>().create(FeedService::class.java)
     }
+    single<VideoAPIService>{
+        Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(get()))
+                .baseUrl("https://is.snssdk.com")
+                .client(get())
+                .build().create(VideoAPIService::class.java)
+    }
+    single<VideoFeedService> {
+        Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create(get()))
+                .baseUrl("https://ib.snssdk.com")
+                .client(get())
+                .build().create(VideoFeedService::class.java)
+    }
+
 }
 
 val vmModule = module {
     viewModel { HomeViewModel(androidApplication(), get(), get()) }
     viewModel { IndexViewModel(androidApplication(), get(), get()) }
     viewModel { FeedViewModel(androidApplication(), get()) }
+    viewModel { VideoViewModel(androidApplication(), get()) }
+    viewModel { FeedVideoViewModel(androidApplication()) }
 }
 val appModule = listOf(singleModule, vmModule, serviceModule)

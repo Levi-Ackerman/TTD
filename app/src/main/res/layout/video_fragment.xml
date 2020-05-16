@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="mikasa.ackerman.ttd.host.video.viewmodel.VideoViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/status_space_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/colorAccent" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tool_bar_height"
+            android:background="@color/colorAccent">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/bg_top_search_textview"
+                android:focusable="true"
+                android:hint="@{vm.searchSuggestsText}"
+                android:paddingLeft="8dp" />
+        </FrameLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            app:tabMode="scrollable"
+            app:tabIndicatorFullWidth="false"
+            app:tabIndicatorColor="@color/colorAccent"
+            android:id="@+id/videoCategoryTab"
+            android:layout_width="match_parent"
+            app:tabTextColor="@color/colorAccent"
+            android:layout_height="28dp" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/videoViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</layout>

@@ -14,7 +14,6 @@ import com.google.gson.Gson
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.IndexFragmentBinding
-import mikasa.ackerman.ttd.host.index.feed.FeedFragment
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
 import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.util.ViewUtil
@@ -78,9 +77,7 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return FeedFragment().apply {
-                arguments = bundleOf("item" to mCategories[position])
-            }
+            return Fragment()
         }
     }
 }

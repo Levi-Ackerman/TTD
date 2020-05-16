@@ -5,11 +5,13 @@
 
         <variable
             name="vm"
-            type="mikasa.ackerman.ttd.host.index.feed.viewmodel.FeedViewModel" />
+            type="mikasa.ackerman.ttd.host.video.feed.viewmodel.FeedVideoViewModel" />
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/feedListView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
 </layout>
