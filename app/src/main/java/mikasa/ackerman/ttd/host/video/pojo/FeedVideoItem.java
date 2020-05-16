@@ -1,8 +1,12 @@
 package mikasa.ackerman.ttd.host.video.pojo;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
+import android.os.Parcel;
+import android.os.Parcelable.Creator;
+import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -33,7 +37,7 @@ import com.google.gson.annotations.SerializedName;
  * @version 1.0
  * 2020/5/16 4:53 PM
  */
-public class FeedVideoItem {
+public class FeedVideoItem   {
 
     public static class FeedVideoItemAdapter implements JsonDeserializer<FeedVideoItem>, JsonSerializer<FeedVideoItem> {
         public FeedVideoItemAdapter(Gson gson){
@@ -217,8 +221,8 @@ public class FeedVideoItem {
     private String articleUrl;
     @SerializedName("ban_comment")
     private int banComment;
-    @SerializedName("ban_danmaku")
-    private int banDanmaku;
+    //@SerializedName("ban_danmaku")
+    //private int banDanmaku;
     @SerializedName("ban_danmaku_send")
     private int banDanmakuSend;
     @SerializedName("ban_immersive")
@@ -420,9 +424,9 @@ public class FeedVideoItem {
 
     public void setBanComment(int banComment) { this.banComment = banComment;}
 
-    public int getBanDanmaku() { return banDanmaku;}
+    //public int getBanDanmaku() { return banDanmaku;}
 
-    public void setBanDanmaku(int banDanmaku) { this.banDanmaku = banDanmaku;}
+    //public void setBanDanmaku(int banDanmaku) { this.banDanmaku = banDanmaku;}
 
     public int getBanDanmakuSend() { return banDanmakuSend;}
 
@@ -778,7 +782,7 @@ public class FeedVideoItem {
         public void setChannelId(long channelId) { this.channelId = channelId;}
     }
 
-    public static class ForwardInfo {
+    public static class ForwardInfo implements android.os.Parcelable {
         /**
          * forward_count : 0
          */
@@ -789,6 +793,24 @@ public class FeedVideoItem {
         public int getForwardCount() { return forwardCount;}
 
         public void setForwardCount(int forwardCount) { this.forwardCount = forwardCount;}
+
+        @Override
+        public int describeContents() { return 0; }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {dest.writeInt(this.forwardCount);}
+
+        public ForwardInfo() {}
+
+        protected ForwardInfo(Parcel in) {this.forwardCount = in.readInt();}
+
+        public static final Creator<ForwardInfo> CREATOR = new Creator<ForwardInfo>() {
+            @Override
+            public ForwardInfo createFromParcel(Parcel source) {return new ForwardInfo(source);}
+
+            @Override
+            public ForwardInfo[] newArray(int size) {return new ForwardInfo[size];}
+        };
     }
 
     public static class LogPb {
@@ -1005,7 +1027,7 @@ public class FeedVideoItem {
         @SerializedName("is_gov_article")
         private boolean isGovArticle;
         @SerializedName("display_flags")
-        private int displayFlags;
+        private long displayFlags;
         @SerializedName("review_comment_mode")
         private int reviewCommentMode;
         @SerializedName("group_source")
@@ -1045,9 +1067,9 @@ public class FeedVideoItem {
 
         public void setIsGovArticle(boolean isGovArticle) { this.isGovArticle = isGovArticle;}
 
-        public int getDisplayFlags() { return displayFlags;}
+        public long getDisplayFlags() { return displayFlags;}
 
-        public void setDisplayFlags(int displayFlags) { this.displayFlags = displayFlags;}
+        public void setDisplayFlags(long displayFlags) { this.displayFlags = displayFlags;}
 
         public int getReviewCommentMode() { return reviewCommentMode;}
 

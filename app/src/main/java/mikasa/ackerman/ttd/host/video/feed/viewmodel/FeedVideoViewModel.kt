@@ -12,6 +12,7 @@ import kotlinx.coroutines.withContext
 import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
 import mikasa.ackerman.ttd.host.video.model.VideoFeedService
 import mikasa.ackerman.ttd.host.video.pojo.FeedVideoItem
+import java.lang.Exception
 
 /**
  * description: FeedVideoViewModel
@@ -25,20 +26,24 @@ class FeedVideoViewModel(application: Application, private val mVideoFeedService
     val videoItems get() = mVideoItems
     fun loadData(refresh: Boolean) {
         viewModelScope.launch {
-            onLoadingState()
-            val videoListResp = withContext(Dispatchers.IO) {
-                mVideoFeedService.getVideoList().execute()
-            }
-            if (videoListResp.isSuccessful) {
-                if (videoListResp.body()?.isEmpty() != false) {
-                    onEmptyState()
-                } else {
-                    val videoItems = videoListResp.body()!!.getContent()
-                    mVideoItems.value = videoItems
-                    onContentState()
+            try {
+                onLoadingState()
+                val videoListResp = withContext(Dispatchers.IO) {
+                    mVideoFeedService.getVideoList().execute()
                 }
-            } else {
-                onErrorState()
+                if (videoListResp.isSuccessful) {
+                    if (videoListResp.body()?.isEmpty() != false) {
+                        onEmptyState()
+                    } else {
+                        val videoItems = videoListResp.body()!!.getContent()
+                        mVideoItems.value = videoItems
+                        onContentState()
+                    }
+                } else {
+                    onErrorState()
+                }
+            }catch (e:Exception){
+                e.printStackTrace()
             }
         }
     }
