@@ -9,13 +9,19 @@ import mikasa.ackerman.ttd.host.base.ui.RBTab
 import mikasa.ackerman.ttd.host.home.viewmodel.HomeViewModel
 import mikasa.ackerman.ttd.host.index.feed.viewmodel.FeedViewModel
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
-import mikasa.ackerman.ttd.host.network.*
+import mikasa.ackerman.ttd.host.network.ArticleCategoryService
+import mikasa.ackerman.ttd.host.network.BottomTabService
+import mikasa.ackerman.ttd.host.network.FeedService
+import mikasa.ackerman.ttd.host.network.SearchSuggestionService
 import mikasa.ackerman.ttd.host.pojo.FeedItem
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedDao
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedRepo
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedService
+import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem
 import mikasa.ackerman.ttd.host.video.feed.viewmodel.FeedVideoViewModel
-import mikasa.ackerman.ttd.host.video.pojo.FeedVideoItem
+import mikasa.ackerman.ttd.host.video.model.VideoCategoryAPIService
+import mikasa.ackerman.ttd.host.video.model.VideoCategoryDao
+import mikasa.ackerman.ttd.host.video.model.VideoCategoryRepo
 import mikasa.ackerman.ttd.host.video.viewmodel.VideoViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -86,12 +92,12 @@ val serviceModule = module {
     single<FeedService> {
         get<Retrofit>().create(FeedService::class.java)
     }
-    single<VideoAPIService> {
+    single<VideoCategoryAPIService> {
         Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(get()))
                 .baseUrl("https://is.snssdk.com")
                 .client(get())
-                .build().create(VideoAPIService::class.java)
+                .build().create(VideoCategoryAPIService::class.java)
     }
     single<VideoFeedService> {
         Retrofit.Builder()
@@ -104,13 +110,13 @@ val serviceModule = module {
 }
 
 val daoModule = module {
-    single {
-        VideoFeedDao()
-    }
+    single { VideoFeedDao() }
+    single { VideoCategoryDao() }
 }
 
 val repoModule = module {
-    single<VideoFeedRepo> { VideoFeedRepo(get(), get()) }
+    single { VideoFeedRepo(get(), get()) }
+    single { VideoCategoryRepo(get(), get()) }
 }
 
 val vmModule = module {

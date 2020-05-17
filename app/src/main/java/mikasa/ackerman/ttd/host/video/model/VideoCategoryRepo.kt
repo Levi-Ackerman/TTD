@@ -1,4 +1,4 @@
-package mikasa.ackerman.ttd.host.video.feed.model
+package mikasa.ackerman.ttd.host.video.model
 
 /**
  * TTD
@@ -18,8 +18,7 @@ package mikasa.ackerman.ttd.host.video.feed.model
  *
  * @author zhengxian.lzx@alibaba-inc.com
  * @version 1.0
- * 2020/5/17 9:32 AM
+ * 2020/5/17 10:15 AM
  */
-class VideoFeedRepo(val videoFeedService: VideoFeedService, val videoFeedDao: VideoFeedDao) {
-
+class VideoCategoryRepo(val mVideoCategoryAPIService: VideoCategoryAPIService, val mVideoCategoryDao: VideoCategoryDao) {
 }

@@ -1,6 +1,6 @@
 package mikasa.ackerman.ttd.host.video.feed.model
 
-import mikasa.ackerman.ttd.host.video.pojo.FeedVideoList
+import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoList
 import retrofit2.Call
 import retrofit2.http.GET
 

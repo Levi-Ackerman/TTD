@@ -13,9 +13,9 @@ import kotlinx.android.synthetic.main.video_fragment.*
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.VideoFragmentBinding
-import mikasa.ackerman.ttd.host.pojo.VideoCategories
 import mikasa.ackerman.ttd.host.util.ViewUtil
 import mikasa.ackerman.ttd.host.video.feed.FeedVideoFragment
+import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
 import mikasa.ackerman.ttd.host.video.viewmodel.VideoViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -58,9 +58,9 @@ class VideoFragment : BaseFragment<VideoFragmentBinding>() {
         }
     }
 
-    class VideoPageAdapter(fragmentActivity: FragmentActivity, val mCategories: MutableList<VideoCategories.VideoCategory>) : FragmentStateAdapter(fragmentActivity) {
+    class VideoPageAdapter(fragmentActivity: FragmentActivity, val mCategories: MutableList<VideoCategory>) : FragmentStateAdapter(fragmentActivity) {
 
-        fun setCategories(categories: List<VideoCategories.VideoCategory>) {
+        fun setCategories(categories: List<VideoCategory>) {
             mCategories.clear()
             mCategories.addAll(categories)
         }

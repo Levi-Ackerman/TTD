@@ -10,8 +10,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
-import mikasa.ackerman.ttd.host.network.VideoAPIService
-import mikasa.ackerman.ttd.host.pojo.VideoCategories
+import mikasa.ackerman.ttd.host.video.model.VideoCategoryAPIService
+import mikasa.ackerman.ttd.host.video.model.VideoCategoryRepo
+import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
 
 /**
  * description: VideoViewModel
@@ -20,8 +21,8 @@ import mikasa.ackerman.ttd.host.pojo.VideoCategories
  *
  * @date 2020/05/15
  */
-class VideoViewModel(application:Application, val mVideoAPIService: VideoAPIService) : BaseViewModel(application) {
-    private val mCategories = MutableLiveData<List<VideoCategories.VideoCategory>>()
+class VideoViewModel(application:Application, val mVideoCategoryRepo: VideoCategoryRepo) : BaseViewModel(application) {
+    private val mCategories = MutableLiveData<List<VideoCategory>>()
 
     val categories get() = mCategories
 
@@ -29,7 +30,7 @@ class VideoViewModel(application:Application, val mVideoAPIService: VideoAPIServ
         viewModelScope.launch {
             onLoadingState()
             val videoCategoriesResp = withContext(Dispatchers.IO){
-                mVideoAPIService.getCategory().execute()
+                mVideoCategoryRepo.mVideoCategoryAPIService.getCategory().execute()
             }
             if(videoCategoriesResp.isSuccessful){
                 val categories = videoCategoriesResp.body()

@@ -1,12 +1,9 @@
-package mikasa.ackerman.ttd.host.video.pojo;
+package mikasa.ackerman.ttd.host.video.feed.pojo;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Parcel;
-import android.os.Parcelable.Creator;
-import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

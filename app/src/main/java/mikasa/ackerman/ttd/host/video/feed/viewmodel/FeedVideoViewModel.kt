@@ -11,8 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedRepo
-import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedService
-import mikasa.ackerman.ttd.host.video.pojo.FeedVideoItem
+import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem
 import java.lang.Exception
 
 /**

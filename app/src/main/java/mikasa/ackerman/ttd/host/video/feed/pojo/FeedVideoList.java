@@ -1,4 +1,4 @@
-package mikasa.ackerman.ttd.host.video.pojo;
+package mikasa.ackerman.ttd.host.video.feed.pojo;
 
 import java.util.Collections;
 import java.util.List;

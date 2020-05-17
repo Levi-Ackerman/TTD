@@ -16,7 +16,7 @@ import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.FeedVideoFragmentBinding
 import mikasa.ackerman.ttd.host.databinding.ItemFeedVideoBinding
 import mikasa.ackerman.ttd.host.video.feed.viewmodel.FeedVideoViewModel
-import mikasa.ackerman.ttd.host.video.pojo.FeedVideoItem
+import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
