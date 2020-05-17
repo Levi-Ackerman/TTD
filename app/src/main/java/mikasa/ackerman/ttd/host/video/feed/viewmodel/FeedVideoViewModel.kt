@@ -10,7 +10,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
-import mikasa.ackerman.ttd.host.video.model.VideoFeedService
+import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedRepo
+import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedService
 import mikasa.ackerman.ttd.host.video.pojo.FeedVideoItem
 import java.lang.Exception
 
@@ -21,7 +22,7 @@ import java.lang.Exception
  *
  * @date 2020/05/16
  */
-class FeedVideoViewModel(application: Application, private val mVideoFeedService: VideoFeedService) : BaseViewModel(application) {
+class FeedVideoViewModel(application: Application, private val mVideoFeedRepo: VideoFeedRepo) : BaseViewModel(application) {
     private val mVideoItems = MutableLiveData<List<FeedVideoItem>>()
     val videoItems get() = mVideoItems
     fun loadData(refresh: Boolean) {
@@ -29,7 +30,7 @@ class FeedVideoViewModel(application: Application, private val mVideoFeedService
             try {
                 onLoadingState()
                 val videoListResp = withContext(Dispatchers.IO) {
-                    mVideoFeedService.getVideoList().execute()
+                    mVideoFeedRepo.videoFeedService.getVideoList().execute()
                 }
                 if (videoListResp.isSuccessful) {
                     if (videoListResp.body()?.isEmpty() != false) {

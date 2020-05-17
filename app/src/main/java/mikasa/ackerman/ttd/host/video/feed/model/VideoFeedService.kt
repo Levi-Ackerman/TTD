@@ -1,4 +1,4 @@
-package mikasa.ackerman.ttd.host.video.model
+package mikasa.ackerman.ttd.host.video.feed.model
 
 import mikasa.ackerman.ttd.host.video.pojo.FeedVideoList
 import retrofit2.Call

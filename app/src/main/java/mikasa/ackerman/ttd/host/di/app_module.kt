@@ -11,9 +11,10 @@ import mikasa.ackerman.ttd.host.index.feed.viewmodel.FeedViewModel
 import mikasa.ackerman.ttd.host.index.viewmodel.IndexViewModel
 import mikasa.ackerman.ttd.host.network.*
 import mikasa.ackerman.ttd.host.pojo.FeedItem
-import mikasa.ackerman.ttd.host.pojo.FeedList
+import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedDao
+import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedRepo
+import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedService
 import mikasa.ackerman.ttd.host.video.feed.viewmodel.FeedVideoViewModel
-import mikasa.ackerman.ttd.host.video.model.VideoFeedService
 import mikasa.ackerman.ttd.host.video.pojo.FeedVideoItem
 import mikasa.ackerman.ttd.host.video.viewmodel.VideoViewModel
 import okhttp3.OkHttpClient
@@ -85,7 +86,7 @@ val serviceModule = module {
     single<FeedService> {
         get<Retrofit>().create(FeedService::class.java)
     }
-    single<VideoAPIService>{
+    single<VideoAPIService> {
         Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create(get()))
                 .baseUrl("https://is.snssdk.com")
@@ -102,6 +103,16 @@ val serviceModule = module {
 
 }
 
+val daoModule = module {
+    single {
+        VideoFeedDao()
+    }
+}
+
+val repoModule = module {
+    single<VideoFeedRepo> { VideoFeedRepo(get(), get()) }
+}
+
 val vmModule = module {
     viewModel { HomeViewModel(androidApplication(), get(), get()) }
     viewModel { IndexViewModel(androidApplication(), get(), get()) }
@@ -109,4 +120,4 @@ val vmModule = module {
     viewModel { VideoViewModel(androidApplication(), get()) }
     viewModel { FeedVideoViewModel(androidApplication(), get()) }
 }
-val appModule = listOf(singleModule, vmModule, serviceModule)
+val appModule = listOf(daoModule, repoModule, singleModule, vmModule, serviceModule)
