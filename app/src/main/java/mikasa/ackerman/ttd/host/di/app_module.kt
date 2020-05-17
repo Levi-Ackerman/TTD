@@ -1,7 +1,11 @@
 package mikasa.ackerman.ttd.host.di
 
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import androidx.core.content.contentValuesOf
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import mikasa.ackerman.ttd.host.R
@@ -24,6 +28,7 @@ import mikasa.ackerman.ttd.host.video.feed.viewmodel.FeedVideoViewModel
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryAPIService
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryDao
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryRepo
+import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
 import mikasa.ackerman.ttd.host.video.viewmodel.VideoViewModel
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -78,7 +83,18 @@ val singleModule = module {
     }
     single { OkHttpClient() }
 
-    single { Room.databaseBuilder(androidApplication(), VideoDatabase::class.java, VideoDatabase.NAME).build() }
+    single {
+        Room.databaseBuilder(androidApplication(), VideoDatabase::class.java, VideoDatabase.NAME)
+                .addCallback(object :RoomDatabase.Callback(){
+                    override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
+                        //初始化创建时，塞入一些数据
+                        db.insert(VideoCategory.TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE,
+                                contentValuesOf(VideoCategory.COLUMN_NAME_CATEGORY to "film_tv",
+                                VideoCategory.COLUMN_NAME_NAME to "影视"))
+                    }
+                })
+                .build() }
 }
 
 val serviceModule = module {
@@ -128,4 +144,8 @@ val vmModule = module {
     viewModel { VideoViewModel(androidApplication(), get()) }
     viewModel { FeedVideoViewModel(androidApplication(), get()) }
 }
-val appModule = listOf(daoModule, repoModule, singleModule, vmModule, serviceModule)
+
+val factoryModule = module{
+    factory { VideoCategory() }
+}
+val appModule = listOf(factoryModule, daoModule, repoModule, singleModule, vmModule, serviceModule)

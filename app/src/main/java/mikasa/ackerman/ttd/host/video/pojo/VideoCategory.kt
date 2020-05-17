@@ -36,6 +36,8 @@ import kotlinx.android.parcel.Parcelize
 class VideoCategory : Parcelable {
     companion object{
         const val TABLE_NAME = "video_category"
+        const val COLUMN_NAME_CATEGORY = "category"
+        const val COLUMN_NAME_NAME = "name"
     }
 
     /**
@@ -50,15 +52,15 @@ class VideoCategory : Parcelable {
      * web_url :
      */
     @PrimaryKey
-    @ColumnInfo(name = "category")
+    @ColumnInfo(name = COLUMN_NAME_CATEGORY)
     @SerializedName("category")
     var category: String = ""
 
-    @SerializedName("category_type")
-    var categoryType = 0
-
-    @SerializedName("flags")
-    var flags = 0
+//    @SerializedName("category_type")
+//    var categoryType = 0
+//
+//    @SerializedName("flags")
+//    var flags = 0
 
     @SerializedName("hor_immersive_category")
     var horImmersiveCategory: String? = null
@@ -67,14 +69,14 @@ class VideoCategory : Parcelable {
     var iconUrl: String? = null
 
     @SerializedName("name")
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = COLUMN_NAME_NAME)
     var name: String? = null
 
-    @SerializedName("tip_new")
-    var tipNew = 0
-
-    @SerializedName("type")
-    var type = 0
+//    @SerializedName("tip_new")
+//    var tipNew = 0
+//
+//    @SerializedName("type")
+//    var type = 0
 
     @SerializedName("web_url")
     var webUrl: String? = null

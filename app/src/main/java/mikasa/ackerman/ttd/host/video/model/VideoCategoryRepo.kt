@@ -34,7 +34,7 @@ class VideoCategoryRepo(private val mVideoCategoryAPIService: VideoCategoryAPISe
 
     val categoryList get() = mCategoryList
 
-    suspend fun loadVideoCategories() {
+    fun loadVideoCategories() {
         val result = mVideoCategoryAPIService.getCategory().execute()
         if (result.isSuccessful && result.body()?.getContent() != null){
             val list = result.body()!!.getContent()

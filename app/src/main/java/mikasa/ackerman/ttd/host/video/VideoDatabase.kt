@@ -31,4 +31,5 @@ abstract class VideoDatabase : RoomDatabase() {
         const val NAME = "video_database"
     }
     abstract fun videoDao(): VideoCategoryDao
+
 }
