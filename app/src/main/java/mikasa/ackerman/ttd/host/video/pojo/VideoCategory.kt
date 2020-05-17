@@ -31,9 +31,12 @@ import kotlinx.android.parcel.Parcelize
  * @version 1.0
  * 2020/5/17 10:03 AM
  */
-@Entity
+@Entity(tableName = VideoCategory.TABLE_NAME)
 @Parcelize
 class VideoCategory : Parcelable {
+    companion object{
+        const val TABLE_NAME = "video_category"
+    }
 
     /**
      * category : subv_entertainment
@@ -49,7 +52,7 @@ class VideoCategory : Parcelable {
     @PrimaryKey
     @ColumnInfo(name = "category")
     @SerializedName("category")
-    var category: String? = null
+    var category: String = ""
 
     @SerializedName("category_type")
     var categoryType = 0

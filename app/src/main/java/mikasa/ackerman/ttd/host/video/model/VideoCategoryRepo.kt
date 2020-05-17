@@ -1,5 +1,12 @@
 package mikasa.ackerman.ttd.host.video.model
 
+import androidx.lifecycle.MutableLiveData
+import mikasa.ackerman.ttd.host.video.pojo.VideoCategories
+import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 /**
  * TTD
  *
@@ -20,5 +27,19 @@ package mikasa.ackerman.ttd.host.video.model
  * @version 1.0
  * 2020/5/17 10:15 AM
  */
-class VideoCategoryRepo(val mVideoCategoryAPIService: VideoCategoryAPIService, val mVideoCategoryDao: VideoCategoryDao) {
+class VideoCategoryRepo(private val mVideoCategoryAPIService: VideoCategoryAPIService, private val mVideoCategoryDao: VideoCategoryDao) {
+    private val mCategoryList by lazy {
+        mVideoCategoryDao.getAll()
+    }
+
+    val categoryList get() = mCategoryList
+
+    suspend fun loadVideoCategories() {
+        val result = mVideoCategoryAPIService.getCategory().execute()
+        if (result.isSuccessful && result.body()?.getContent() != null){
+            val list = result.body()!!.getContent()
+            mVideoCategoryDao.deleteAll()
+            mVideoCategoryDao.insert(list)
+        }
+    }
 }

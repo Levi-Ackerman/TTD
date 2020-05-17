@@ -1,6 +1,7 @@
 package mikasa.ackerman.ttd.host.di
 
 import android.content.Context
+import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import mikasa.ackerman.ttd.host.R
@@ -14,6 +15,7 @@ import mikasa.ackerman.ttd.host.network.BottomTabService
 import mikasa.ackerman.ttd.host.network.FeedService
 import mikasa.ackerman.ttd.host.network.SearchSuggestionService
 import mikasa.ackerman.ttd.host.pojo.FeedItem
+import mikasa.ackerman.ttd.host.video.VideoDatabase
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedDao
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedRepo
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedService
@@ -74,9 +76,9 @@ val singleModule = module {
                 .client(get())
                 .build()
     }
-    single {
-        OkHttpClient()
-    }
+    single { OkHttpClient() }
+
+    single { Room.databaseBuilder(androidApplication(), VideoDatabase::class.java, VideoDatabase.NAME).build() }
 }
 
 val serviceModule = module {
@@ -111,7 +113,7 @@ val serviceModule = module {
 
 val daoModule = module {
     single { VideoFeedDao() }
-    single { VideoCategoryDao() }
+    single { get<VideoDatabase>().videoDao() }
 }
 
 val repoModule = module {

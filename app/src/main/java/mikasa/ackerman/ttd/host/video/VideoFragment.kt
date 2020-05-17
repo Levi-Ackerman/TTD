@@ -42,14 +42,14 @@ class VideoFragment : BaseFragment<VideoFragmentBinding>() {
         TabLayoutMediator(videoCategoryTab, videoViewPager) { tab, position ->
             tab.text = mAdapter.getItemTitle(position)
         }.attach()
-        mViewModel.categories.observe(this, Observer {
-            mAdapter.setCategories(it)
-            mAdapter.notifyDataSetChanged()
-        })
     }
 
     override fun loadData(isRefresh: Boolean) {
         mViewModel.loadData(isRefresh)
+        mViewModel.categories.observe(this, Observer {
+            mAdapter.setCategories(it)
+            mAdapter.notifyDataSetChanged()
+        })
     }
 
     override fun bindVm() {

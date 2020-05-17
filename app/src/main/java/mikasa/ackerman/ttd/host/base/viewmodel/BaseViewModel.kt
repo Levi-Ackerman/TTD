@@ -34,7 +34,7 @@ import mikasa.ackerman.ttd.host.base.ui.StateView
  */
 
 open class BaseViewModel(app:Application) : AndroidViewModel(app) {
-    private val mState = MutableLiveData<StateView.ContentState>(StateView.ContentState.LOADING)
+    private val mState = MutableLiveData<StateView.ContentState>(StateView.ContentState.CONTENT)
 
     val state: LiveData<StateView.ContentState> get() = mState
 

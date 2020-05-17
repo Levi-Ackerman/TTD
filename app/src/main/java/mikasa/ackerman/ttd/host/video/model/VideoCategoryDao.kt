@@ -1,5 +1,10 @@
 package mikasa.ackerman.ttd.host.video.model
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.room.*
+import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
+
 /**
  * TTD
  *
@@ -20,5 +25,15 @@ package mikasa.ackerman.ttd.host.video.model
  * @version 1.0
  * 2020/5/17 10:16 AM
  */
-class VideoCategoryDao {
+@Dao
+interface VideoCategoryDao {
+    @Query("select * from ${VideoCategory.TABLE_NAME}")
+    fun getAll(): LiveData<List<VideoCategory>>
+
+    @Query("delete from ${VideoCategory.TABLE_NAME}")
+    fun deleteAll()
+
+    @Insert
+    fun insert(categories: List<VideoCategory>)
+
 }
