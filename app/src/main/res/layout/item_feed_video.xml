@@ -3,21 +3,72 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="feedVideoItem"
             type="mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:text="@{feedVideoItem.title}"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="180dp">
+
+
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_default" />
+
+            <ImageView
+                android:id="@+id/iv_play"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_play_video" />
+
+            <include
+                layout="@layout/include_news_title"
+                app:title="@{feedVideoItem.title}"/>
+
+            <TextView
+                android:id="@+id/tv_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/shape_rectangle_translucent"
+                android:minWidth="28dp"
+                android:padding="5dp"
+                android:text="04:20"
+                android:textColor="@android:color/white"
+                android:textSize="8sp" />
+            <TextView
+                android:id="@+id/tv_play_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="2dp"
+                android:background="@drawable/shape_rectangle_translucent"
+                android:minWidth="28dp"
+                android:padding="5dp"
+                android:text="04:20"
+                android:textColor="@android:color/white"
+                android:textSize="8sp" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal" />
+    </LinearLayout>
 </layout>

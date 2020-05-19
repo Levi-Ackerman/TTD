@@ -4,15 +4,8 @@
 package mikasa.ackerman.ttd.host.video.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import mikasa.ackerman.ttd.host.base.viewmodel.BaseViewModel
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryRepo
-import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
 
 /**
  * description: VideoViewModel
@@ -26,11 +19,7 @@ class VideoViewModel(application: Application, val mVideoCategoryRepo: VideoCate
     val categories get() = mVideoCategoryRepo.categoryList
 
     fun loadData(refresh: Boolean) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                mVideoCategoryRepo.loadVideoCategories()
-            }
-        }
+        mVideoCategoryRepo.loadVideoCategories()
     }
 
     val searchSuggestsText get() = ""

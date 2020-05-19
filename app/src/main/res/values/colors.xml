@@ -29,4 +29,5 @@
     <color name="color_4592C6">#4592C6</color>
     <color name="color_1affffff">#1affffff</color>
     <color name="color_E6E8E7">#E6E8E7</color>
+    <color name="translucent">#aa000000</color>
 </resources>

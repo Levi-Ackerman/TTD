@@ -1,6 +1,9 @@
 package mikasa.ackerman.ttd.host.video.model
 
 import androidx.lifecycle.MutableLiveData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import mikasa.ackerman.ttd.host.video.pojo.VideoCategories
 import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
 import retrofit2.Call
@@ -35,11 +38,21 @@ class VideoCategoryRepo(private val mVideoCategoryAPIService: VideoCategoryAPISe
     val categoryList get() = mCategoryList
 
     fun loadVideoCategories() {
-        val result = mVideoCategoryAPIService.getCategory().execute()
-        if (result.isSuccessful && result.body()?.getContent() != null){
-            val list = result.body()!!.getContent()
-            mVideoCategoryDao.deleteAll()
-            mVideoCategoryDao.insert(list)
-        }
+        mVideoCategoryAPIService.getCategory().enqueue(object : Callback<VideoCategories>{
+            override fun onFailure(call: Call<VideoCategories>, t: Throwable) {
+
+            }
+
+            override fun onResponse(call: Call<VideoCategories>, result: Response<VideoCategories>) {
+                if (result.isSuccessful && result.body()?.getContent() != null){
+                    val list = result.body()!!.getContent()
+                    GlobalScope.launch(Dispatchers.IO) {
+                        mVideoCategoryDao.deleteAll()
+                        mVideoCategoryDao.insert(list)
+                    }
+                }
+            }
+        })
+
     }
 }
