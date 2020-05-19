@@ -24,6 +24,7 @@ import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedDao
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedRepo
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedService
 import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem
+import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItemAdapter
 import mikasa.ackerman.ttd.host.video.feed.viewmodel.FeedVideoViewModel
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryAPIService
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryDao
@@ -71,7 +72,7 @@ val singleModule = module {
         val gson = Gson()
         GsonBuilder()
                 .registerTypeAdapter(FeedItem::class.java, FeedItem.FeedItemAdapter(gson))
-                .registerTypeAdapter(FeedVideoItem::class.java, FeedVideoItem.FeedVideoItemAdapter(gson))
+                .registerTypeAdapter(FeedVideoItem::class.java, FeedVideoItemAdapter(gson))
                 .create()
     }
     single<Retrofit> {
