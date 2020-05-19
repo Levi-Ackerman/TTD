@@ -20,14 +20,12 @@ import mikasa.ackerman.ttd.host.network.FeedService
 import mikasa.ackerman.ttd.host.network.SearchSuggestionService
 import mikasa.ackerman.ttd.host.pojo.FeedItem
 import mikasa.ackerman.ttd.host.video.VideoDatabase
-import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedDao
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedRepo
 import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedService
 import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem
 import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItemAdapter
 import mikasa.ackerman.ttd.host.video.feed.viewmodel.FeedVideoViewModel
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryAPIService
-import mikasa.ackerman.ttd.host.video.model.VideoCategoryDao
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryRepo
 import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
 import mikasa.ackerman.ttd.host.video.viewmodel.VideoViewModel
@@ -86,16 +84,17 @@ val singleModule = module {
 
     single {
         Room.databaseBuilder(androidApplication(), VideoDatabase::class.java, VideoDatabase.NAME)
-                .addCallback(object :RoomDatabase.Callback(){
+                .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         //初始化创建时，塞入一些数据
                         db.insert(VideoCategory.TABLE_NAME, SQLiteDatabase.CONFLICT_REPLACE,
                                 contentValuesOf(VideoCategory.COLUMN_NAME_CATEGORY to "film_tv",
-                                VideoCategory.COLUMN_NAME_NAME to "影视"))
+                                        VideoCategory.COLUMN_NAME_NAME to "影视"))
                     }
                 })
-                .build() }
+                .build()
+    }
 }
 
 val serviceModule = module {
@@ -129,7 +128,7 @@ val serviceModule = module {
 }
 
 val daoModule = module {
-    single { VideoFeedDao() }
+    single { get<VideoDatabase>().videoFeedDao() }
     single { get<VideoDatabase>().videoDao() }
 }
 
@@ -146,7 +145,7 @@ val vmModule = module {
     viewModel { FeedVideoViewModel(androidApplication(), get()) }
 }
 
-val factoryModule = module{
+val factoryModule = module {
     factory { VideoCategory() }
 }
 val appModule = listOf(factoryModule, daoModule, repoModule, singleModule, vmModule, serviceModule)

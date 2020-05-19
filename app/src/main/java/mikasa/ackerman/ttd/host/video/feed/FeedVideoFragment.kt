@@ -37,6 +37,7 @@ class FeedVideoFragment : BaseFragment<FeedVideoFragmentBinding>() {
             adapter = mAdapter
             layoutManager = LinearLayoutManager(context)
         }
+        mViewModel.initData()
     }
 
     override fun loadData(isRefresh: Boolean) {
@@ -86,11 +87,12 @@ class FeedVideoFragment : BaseFragment<FeedVideoFragmentBinding>() {
          */
         fun update(newList: List<FeedVideoItem>){
             data.clear()
-            data.addAll(newList)
-            diffCallback.newList = newList
-            val diffResult = DiffUtil.calculateDiff(diffCallback, true)
-            diffResult.dispatchUpdatesTo(this)
-            diffCallback.oldList = newList
+            data.addAll(0, newList)
+            notifyItemRangeInserted(0,newList.size)
+//            diffCallback.newList = newList
+//            val diffResult = DiffUtil.calculateDiff(diffCallback, true)
+//            diffResult.dispatchUpdatesTo(this)
+//            diffCallback.oldList = newList
         }
 
         override fun getItemCount(): Int {

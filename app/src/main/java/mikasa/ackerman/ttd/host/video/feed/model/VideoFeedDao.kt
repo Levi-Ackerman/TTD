@@ -1,5 +1,7 @@
 package mikasa.ackerman.ttd.host.video.feed.model
 
+import androidx.room.*
+
 /**
  * TTD
  *
@@ -20,5 +22,23 @@ package mikasa.ackerman.ttd.host.video.feed.model
  * @version 1.0
  * 2020/5/17 9:33 AM
  */
-class VideoFeedDao {
+@Dao
+interface VideoFeedDao {
+    @Query("select * from ${FeedVideoItemCache.TABLE_NAME} limit :from, :count")
+    fun getList(from: Int, count: Int): List<FeedVideoItemCache>
+
+    @Insert
+    fun insert(list: List<FeedVideoItemCache>)
+}
+
+@Entity(tableName = FeedVideoItemCache.TABLE_NAME)
+class FeedVideoItemCache {
+    companion object {
+        const val TABLE_NAME = "feed_video_item_cache"
+        const val COLUMN_NAME_DATA = "data"
+    }
+
+    @ColumnInfo(name = COLUMN_NAME_DATA)
+    @PrimaryKey
+    var data: String = ""
 }

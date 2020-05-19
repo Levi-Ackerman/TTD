@@ -2,6 +2,8 @@ package mikasa.ackerman.ttd.host.video
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import mikasa.ackerman.ttd.host.video.feed.model.FeedVideoItemCache
+import mikasa.ackerman.ttd.host.video.feed.model.VideoFeedDao
 import mikasa.ackerman.ttd.host.video.model.VideoCategoryDao
 import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
 
@@ -25,11 +27,15 @@ import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
  * @version 1.0
  * 2020/5/17 10:29 AM
  */
-@Database(entities = [VideoCategory::class], version = 1, exportSchema = false )
+@Database(entities = [VideoCategory::class, FeedVideoItemCache::class], version = 2, exportSchema = false )
 abstract class VideoDatabase : RoomDatabase() {
     companion object{
         const val NAME = "video_database"
     }
-    abstract fun videoDao(): VideoCategoryDao
+
+    abstract fun
+            videoDao(): VideoCategoryDao
+
+    abstract fun videoFeedDao(): VideoFeedDao
 
 }

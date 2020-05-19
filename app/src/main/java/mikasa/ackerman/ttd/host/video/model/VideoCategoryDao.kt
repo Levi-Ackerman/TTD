@@ -28,7 +28,7 @@ import mikasa.ackerman.ttd.host.video.pojo.VideoCategory
 @Dao
 interface VideoCategoryDao {
     @Query("select * from ${VideoCategory.TABLE_NAME}")
-    fun getAll(): LiveData<List<VideoCategory>>
+    fun getAll(): List<VideoCategory>
 
     @Query("delete from ${VideoCategory.TABLE_NAME}")
     fun deleteAll()

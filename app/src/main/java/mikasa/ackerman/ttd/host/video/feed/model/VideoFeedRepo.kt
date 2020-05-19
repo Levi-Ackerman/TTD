@@ -1,5 +1,10 @@
 package mikasa.ackerman.ttd.host.video.feed.model
 
+import com.google.gson.Gson
+import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem
+import org.koin.core.KoinComponent
+import org.koin.core.inject
+
 /**
  * TTD
  *
@@ -20,6 +25,30 @@ package mikasa.ackerman.ttd.host.video.feed.model
  * @version 1.0
  * 2020/5/17 9:32 AM
  */
-class VideoFeedRepo(val videoFeedService: VideoFeedService, val videoFeedDao: VideoFeedDao) {
+class VideoFeedRepo(private val videoFeedService: VideoFeedService, private val videoFeedDao: VideoFeedDao) : KoinComponent {
+
+    private val mGson: Gson by inject()
+
+    fun initData() :MutableList<FeedVideoItem>{
+        val listData = videoFeedDao.getList(0, 18)
+        val items = mutableListOf<FeedVideoItem>()
+        for (data in listData) {
+            items.add(mGson.fromJson(data.data, FeedVideoItem::class.java))
+        }
+        return items
+    }
+
+    fun loadVideoFeedList() :List<FeedVideoItem>? {
+        val result = videoFeedService.getVideoList().execute()
+        return if (result.isSuccessful){
+            if (result.body()?.isEmpty() == false){
+                result.body()!!.getContent()
+            }else{
+                emptyList()
+            }
+        }else{
+            null
+        }
+    }
 
 }
