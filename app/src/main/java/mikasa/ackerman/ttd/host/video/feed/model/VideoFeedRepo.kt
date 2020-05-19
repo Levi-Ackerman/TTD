@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import java.lang.Exception
 
 /**
  * TTD
@@ -29,7 +30,7 @@ class VideoFeedRepo(private val videoFeedService: VideoFeedService, private val 
 
     private val mGson: Gson by inject()
 
-    fun initData() :MutableList<FeedVideoItem>{
+    fun initData(): MutableList<FeedVideoItem> {
         val listData = videoFeedDao.getList(0, 18)
         val items = mutableListOf<FeedVideoItem>()
         for (data in listData) {
@@ -38,15 +39,21 @@ class VideoFeedRepo(private val videoFeedService: VideoFeedService, private val 
         return items
     }
 
-    fun loadVideoFeedList() :List<FeedVideoItem>? {
+    fun loadVideoFeedList(): List<FeedVideoItem>? {
         val result = videoFeedService.getVideoList().execute()
-        return if (result.isSuccessful){
-            if (result.body()?.isEmpty() == false){
-                result.body()!!.getContent()
-            }else{
+        return if (result.isSuccessful) {
+            if (result.body()?.isEmpty() == false) {
+                val content = result.body()!!.getContent()
+                try {
+                    videoFeedDao.insert(content.map { FeedVideoItemCache().apply { mGson.toJson(it) } })
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
+                    content
+            } else {
                 emptyList()
             }
-        }else{
+        } else {
             null
         }
     }

@@ -27,7 +27,7 @@ interface VideoFeedDao {
     @Query("select * from ${FeedVideoItemCache.TABLE_NAME} limit :from, :count")
     fun getList(from: Int, count: Int): List<FeedVideoItemCache>
 
-    @Insert
+    @Update
     fun insert(list: List<FeedVideoItemCache>)
 }
 
