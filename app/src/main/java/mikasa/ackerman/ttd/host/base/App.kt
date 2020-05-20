@@ -32,8 +32,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        IjkMediaPlayer.loadLibrariesOnce(null)
-        IjkMediaPlayer.native_profileBegin("libijkplayer.so")
+
         startKoin {
             androidContext(this@App)
             modules(appModule)

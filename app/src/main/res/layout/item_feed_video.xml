@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="presenter"
+            type="mikasa.ackerman.ttd.host.video.feed.VideoItemViewHolder" />
         <variable
             name="feedVideoItem"
             type="mikasa.ackerman.ttd.host.video.feed.pojo.FeedVideoItem" />
@@ -57,14 +59,17 @@
                 android:text="04:20"
                 android:textColor="@android:color/white"
                 android:textSize="8sp" />
-            <tv.danmaku.ijk.media.player.IJKMediaPlayer
-
-                />
+            <mikasa.ackerman.ttd.host.player.IjkVideoView
+                android:id="@+id/player"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
             <ImageView
                 android:id="@+id/iv_play"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
+                android:onClick="@{view->presenter.play(feedVideoItem)}"
                 android:background="@drawable/selector_play_video" />
         </FrameLayout>
 

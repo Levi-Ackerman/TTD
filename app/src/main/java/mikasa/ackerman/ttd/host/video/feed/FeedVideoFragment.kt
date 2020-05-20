@@ -100,7 +100,7 @@ class FeedVideoFragment : BaseFragment<FeedVideoFragmentBinding>() {
         }
 
         override fun onBindViewHolder(holder: VideoItemViewHolder, position: Int) {
-            holder.binding.feedVideoItem = data[position]
+            holder.bindData(data[position])
         }
     }
 }

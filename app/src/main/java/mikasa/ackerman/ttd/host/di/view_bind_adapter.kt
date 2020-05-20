@@ -1,4 +1,4 @@
-package mikasa.ackerman.ttd.host.bindadapter
+package mikasa.ackerman.ttd.host.di
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -26,6 +26,8 @@ import mikasa.ackerman.ttd.host.video.feed.pojo.MiddleImage
  * 2020/5/20 12:58 PM
  */
 @BindingAdapter("image")
-fun loadImage(imgView: ImageView, img: MiddleImage) {
-    Picasso.with(imgView.context).load(img.url).resize(img.width, img.height).into(imgView)
+fun loadImage(imgView: ImageView, img: MiddleImage?) {
+    img?.let {
+        Picasso.with(imgView.context).load(img.url).resize(img.width, img.height).into(imgView)
+    }
 }
