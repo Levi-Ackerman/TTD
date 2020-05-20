@@ -1,10 +1,8 @@
-package mikasa.ackerman.ttd.host.video.feed
+package mikasa.ackerman.ttd.host.bindadapter
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import mikasa.ackerman.ttd.host.databinding.ItemFeedVideoBinding
 import mikasa.ackerman.ttd.host.video.feed.pojo.MiddleImage
 
 /**
@@ -25,8 +23,9 @@ import mikasa.ackerman.ttd.host.video.feed.pojo.MiddleImage
  *
  * @author zhengxian.lzx@alibaba-inc.com
  * @version 1.0
- * 2020/5/16 10:50 PM
+ * 2020/5/20 12:58 PM
  */
-class VideoItemViewHolder(val binding: ItemFeedVideoBinding) : RecyclerView.ViewHolder(binding.root) {
-
+@BindingAdapter("image")
+fun loadImage(imgView: ImageView, img: MiddleImage) {
+    Picasso.with(imgView.context).load(img.url).resize(img.width, img.height).into(imgView)
 }

@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                app:image="@{feedVideoItem.middle_image}"
                 android:src="@drawable/ic_default" />
 
             <ImageView
