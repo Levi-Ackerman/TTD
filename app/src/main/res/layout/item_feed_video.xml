@@ -27,13 +27,6 @@
                 app:image="@{feedVideoItem.middle_image}"
                 android:src="@drawable/ic_default" />
 
-            <ImageView
-                android:id="@+id/iv_play"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/selector_play_video" />
-
             <include
                 layout="@layout/include_news_title"
                 app:title="@{feedVideoItem.title}"/>
@@ -64,6 +57,15 @@
                 android:text="04:20"
                 android:textColor="@android:color/white"
                 android:textSize="8sp" />
+            <tv.danmaku.ijk.media.player.IJKMediaPlayer
+
+                />
+            <ImageView
+                android:id="@+id/iv_play"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@drawable/selector_play_video" />
         </FrameLayout>
 
         <LinearLayout

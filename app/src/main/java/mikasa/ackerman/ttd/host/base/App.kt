@@ -7,6 +7,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.logger.AndroidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.EmptyLogger
+import tv.danmaku.ijk.media.player.IjkMediaPlayer
 
 /**
  * TTD
@@ -31,6 +32,8 @@ import org.koin.core.logger.EmptyLogger
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        IjkMediaPlayer.loadLibrariesOnce(null)
+        IjkMediaPlayer.native_profileBegin("libijkplayer.so")
         startKoin {
             androidContext(this@App)
             modules(appModule)
