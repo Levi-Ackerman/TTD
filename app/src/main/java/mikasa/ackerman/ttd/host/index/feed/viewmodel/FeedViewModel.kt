@@ -14,6 +14,7 @@ import mikasa.ackerman.ttd.host.network.FeedService
 import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.pojo.FeedItem
 import mikasa.ackerman.ttd.host.pojo.FeedList
+import java.lang.Exception
 
 /**
  * description: ArticleViewModel
@@ -36,11 +37,16 @@ class FeedViewModel(application: Application, val mFeedService: FeedService): Ba
     fun loadData(refresh: Boolean) {
         viewModelScope.launch(Dispatchers.Main) {
             onLoadingState()
-            val feedResponse = withContext(Dispatchers.IO){
-                mFeedService.pullFeed().execute()
+            val feedResponse = withContext(Dispatchers.IO) {
+                try {
+                    mFeedService.pullFeed().execute()
+                }catch (e: Exception){
+                    e.printStackTrace()
+                    null
+                }
             }
 
-            if (feedResponse.isSuccessful){
+            if (feedResponse != null && feedResponse.isSuccessful){
                 if (feedResponse.body()?.isEmpty() != false){
                     updateContent(feedResponse.body()!!.getContent())
                     onContentState()
