@@ -30,8 +30,7 @@ import org.koin.core.inject
  * @version 1.0
  * 2020/5/16 10:50 PM
  */
-class VideoItemViewHolder(val binding: ItemFeedVideoBinding) : RecyclerView.ViewHolder(binding.root) , KoinComponent{
-    private val mGson:Gson by inject()
+class VideoItemViewHolder(private val binding: ItemFeedVideoBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bindData(feedVideoItem: FeedVideoItem) {
         binding.feedVideoItem = feedVideoItem
