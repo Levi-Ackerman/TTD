@@ -1,5 +1,6 @@
 package mikasa.ackerman.ttd.host.pojo;
 
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -342,7 +343,18 @@ public class FeedList implements IPojo<List<FeedItem>> {
 
     public List<FeedItem> getData() { return data;}
 
-    public void setData(List<FeedItem> data) { this.data = data;}
+    public void setData(List<FeedItem> data) {
+        if (data != null){
+            Iterator<FeedItem> it = data.iterator();
+            while (it.hasNext()){
+                FeedItem item = it.next();
+                if (item == null){
+                    it.remove();
+                }
+            }
+        }
+        this.data = data;
+    }
 
     public List<?> getSubEntranceList() { return subEntranceList;}
 

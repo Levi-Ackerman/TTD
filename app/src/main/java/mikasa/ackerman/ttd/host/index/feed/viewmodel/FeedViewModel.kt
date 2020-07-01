@@ -47,7 +47,7 @@ class FeedViewModel(application: Application, val mFeedService: FeedService): Ba
             }
 
             if (feedResponse != null && feedResponse.isSuccessful){
-                if (feedResponse.body()?.isEmpty() != false){
+                if (feedResponse.body()?.isEmpty() == false){
                     updateContent(feedResponse.body()!!.getContent())
                     onContentState()
                 }else{

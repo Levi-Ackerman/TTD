@@ -6,14 +6,18 @@ package mikasa.ackerman.ttd.host.index.feed
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.feed_fragment.*
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.FeedFragmentBinding
 import mikasa.ackerman.ttd.host.index.feed.viewmodel.FeedViewModel
 import mikasa.ackerman.ttd.host.pojo.ArticleCategories
 import mikasa.ackerman.ttd.host.pojo.FeedItem
+import mikasa.ackerman.ttd.host.util.ViewUtil
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -32,6 +36,8 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>() {
     override fun getLayoutId(): Int = R.layout.feed_fragment
 
     override fun initView() {
+        feedListView.layoutManager = LinearLayoutManager(context)
+        feedListView.adapter = mAdapter
     }
 
     override fun loadData(isRefresh: Boolean) {
@@ -60,10 +66,13 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>() {
         fun setDataItems(items: List<FeedItem>){
             mDataItems.clear()
             mDataItems.addAll(items)
+            notifyDataSetChanged()
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FeedViewHolder {
-            return FeedViewHolder(parent)
+            return FeedViewHolder(TextView(parent.context).apply {
+                layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewUtil.dp2px(parent.context,60).toInt())
+            })
         }
 
         override fun getItemCount(): Int {
@@ -71,7 +80,7 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>() {
         }
 
         override fun onBindViewHolder(holder: FeedViewHolder, position: Int) {
-
+            holder.bindData(mDataItems[position])
         }
 
         override fun getItemViewType(position: Int): Int {
@@ -111,7 +120,11 @@ class FeedFragment : BaseFragment<FeedFragmentBinding>() {
 
     }
 
-    class FeedViewHolder(private val mRootView: View) : RecyclerView.ViewHolder(mRootView) {
+    class FeedViewHolder(private val mRootView: TextView) : RecyclerView.ViewHolder(mRootView) {
+        fun bindData(feedItem: FeedItem) {
+            mRootView.text = feedItem.title;
+        }
+
         init {
 
         }

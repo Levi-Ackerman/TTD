@@ -1,7 +1,16 @@
 package mikasa.ackerman.ttd.host.pojo;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -22,40 +31,39 @@ import com.google.gson.annotations.SerializedName;
  *
  * @author zhengxian.lzx@alibaba-inc.com
  * @version 1.0
- * 2020/7/1 10:23 AM
+ * 2020/5/14 12:36 AM
  */
 public class FeedItem {
 
     /**
-     * abstract : 党的十八大以来，习近平总书记高度重视家风建设，在各种场合先后数十次作出一系列重要论述，深刻阐述领导干部家风建设的基本问题，对各级领导干部特别是高级干部做家风建设的表率提出明确要求。
-     * action_extra : {"channel_id": 0}
+     * abstract : 新华社北京5月13日电 国家主席习近平5月13日晚同韩国总统文在寅通电话。习近平强调，经过艰苦努力，中韩两国新冠肺炎疫情都得到有效控制。
      * action_list : [{"action":1,"desc":"","extra":{}},{"action":3,"desc":"","extra":{}},{"action":7,"desc":"",
      * "extra":{}},{"action":9,"desc":"","extra":{}}]
      * aggr_type : 1
      * allow_download : false
      * article_sub_type : 0
      * article_type : 0
-     * article_url : http://toutiao.com/group/6844105245551755789/
+     * article_url : http://www.xinhuanet.com/world/2020-05/13/c_1125981575.htm
      * article_version : 0
      * ban_comment : 0
      * ban_immersive : 0
-     * behot_time : 1593570090
+     * behot_time : 1589386751
      * bury_count : 0
      * bury_style_show : 0
-     * cell_flag : 285474825
+     * cell_flag : 17039371
      * cell_layout_style : 1
      * cell_type : 0
-     * comment_count : 46
+     * comment_count : 54
      * content_decoration :
-     * cursor : 1593570090999
-     * digg_count : 842
-     * display_url : http://toutiao.com/group/6844105245551755789/
-     * feed_title : 习近平高度重视领导干部家风建设
+     * cursor : 1589386751000
+     * digg_count : 630
+     * display_url : http://toutiao.com/group/6826329825599291917/
      * filter_words : [{"id":"8:0","name":"看过了","is_selected":false},{"id":"9:1","name":"内容太水","is_selected":false},{
-     * "id":"5:63335285","name":"拉黑作者:中国纪检监察杂志","is_selected":false},{"id":"3:264328795","name":"不想看:反腐倡廉",
-     * "is_selected":false},{"id":"6:2624769182","name":"不想看:美好，一直在身边","is_selected":false}]
-     * forward_info : {"forward_count":6}
-     * group_id : 6844105245551755789
+     * "id":"5:355256624","name":"拉黑作者:新华网客户端","is_selected":false},{"id":"2:11384971","name":"不想看:时政外交",
+     * "is_selected":false},{"id":"6:15415","name":"不想看:韩国","is_selected":false},{"id":"6:578863","name":"不想看:文在寅",
+     * "is_selected":false}]
+     * forward_info : {"forward_count":5}
+     * group_id : 6826329825599291917
      * group_source : 2
      * has_m3u8_video : false
      * has_mp4_video : 0
@@ -65,68 +73,57 @@ public class FeedItem {
      * interaction_data :
      * is_stick : true
      * is_subject : false
-     * item_id : 6844105245551755789
+     * item_id : 6826329825599291917
      * item_version : 0
      * label : 置顶
      * label_extra : {"is_redirect":false,"redirect_url":"","icon_url":{},"style_type":0}
      * label_style : 1
      * level : 0
-     * like_count : 882
-     * log_pb : {"author_id":"105127497573","impr_id":"20200701102130010014041146370184EA","is_following":"0",
-     * "logpb_group_id":"6844105245551755789","sentinel_type":"0"}
-     * media_info : {"avatar_url":"http://p5a.pstatp.com/large/b7280005960e5638e842","name":"中国纪检监察杂志",
-     * "user_verified":true,"media_id":1613919580596232,"user_id":105127497573,"verified_content":"",
+     * log_pb : {"impr_id":"202005140019110100160401411D601865","is_following":"0"}
+     * media_info : {"avatar_url":"http://p9.pstatp.com/large/pgc-image/03f6307ae99745119fa95747f9d9e525",
+     * "name":"新华网客户端","user_verified":true,"media_id":4377795668,"user_id":4377795668,"verified_content":"",
      * "is_star_user":false,"recommend_reason":"","recommend_type":0,"follow":false}
-     * media_name : 中国纪检监察杂志
+     * media_name : 新华网客户端
      * need_client_impr_recycle : 1
-     * optional_data : {"keynews_expire_time":"2020-07-08 00:00:00","video_series":"","yunyu_type":""}
      * preload_web : 1
-     * publish_time : 1593517429
-     * read_count : 45747
-     * repin_count : 515
-     * rid : 20200701102130010014041146370184EA
-     * share_count : 591
+     * publish_time : 1589378767
+     * read_count : 44735
+     * repin_count : 157
+     * rid : 202005140019110100160401411D601865
+     * share_count : 53
      * share_info : {"share_url":"https://m.toutiaocdn
-     * .net/a6844105245551755789/?app=news_article&is_hit_share_recommend=0",
-     * "title":"好家风应世代相传\u2014\u2014习近平总书记高度重视领导干部家风建设 - 今日头条","description":null,"cover_image":null,"share_type":{
-     * "pyq":0,"qq":0,"qzone":0,"wx":0},"weixin_cover_image":{"url":"http://p1-tt-ipv6.byteimg
-     * .com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640:360.jpg?from=feed","width":640,
-     * "url_list":[{"url":"http://p1-tt-ipv6.byteimg.com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv
-     * -tt-cs0:640:360.jpg?from=feed"},{"url":"http://p1-tt-ipv6.byteimg
-     * .com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640:360.jpg?from=feed"},{"url":"http
-     * ://p1-tt-ipv6.byteimg.com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640:360
-     * .jpg?from=feed"}],"uri":"large/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e","height":360},"token_type
-     * ":1,"on_suppress":0,"hidden_url":null,"video_url":null,"share_control":null}
-     * share_url : https://m.toutiaocdn.net/a6844105245551755789/?app=news_article&is_hit_share_recommend=0
+     * .com/group/6826329825599291917/?app=news_article&is_hit_share_recommend=0","title":"习近平同韩国总统文在寅通电话 - 今日头条",
+     * "description":null,"cover_image":null,"share_type":{"pyq":0,"qq":0,"qzone":0,"wx":0},"weixin_cover_image
+     * ":null,"token_type":1,"on_suppress":0,"hidden_url":null,"video_url":null,"share_control":null}
+     * share_url : https://m.toutiaocdn.com/group/6826329825599291917/?app=news_article&is_hit_share_recommend=0
      * show_dislike : false
      * show_portrait : false
      * show_portrait_article : false
      * small_image : null
-     * source : 中国纪检监察杂志
+     * source : 新华网客户端
      * source_icon_style : 1
-     * source_open_url : sslocal://profile?uid=105127497573
+     * source_open_url : sslocal://profile?uid=4377795668
      * stick_label : 置顶
      * stick_style : 1
-     * tag : news_politics
-     * tag_id : 6844105245551755789
+     * tag : news_world
+     * tag_id : 6826329825599291917
      * tip : 0
-     * title : 好家风应世代相传——习近平总书记高度重视领导干部家风建设
-     * ugc_recommend : {"activity":"","reason":"中国纪检监察杂志社官方账号"}
-     * url : http://toutiao.com/group/6844105245551755789/
-     * user_info : {"avatar_url":"http://p3.pstatp.com/thumb/b7280005960e5638e842","name":"中国纪检监察杂志",
-     * "description":"中国纪检监察杂志社官方头条号","user_id":105127497573,"user_verified":true,"verified_content":"中国纪检监察杂志社官方账号",
-     * "follow":false,"follower_count":0,"user_auth_info":"{\"auth_type\": \"0\", \"auth_info\": \"中国纪检监察杂志社官方账号\"}",
-     * "schema":"sslocal://profile?uid=105127497573&refer=all","live_info_type":1}
+     * title : 习近平同韩国总统文在寅通电话
+     * ugc_recommend : {"activity":"","reason":"新华网官方账号"}
+     * url : http://www.xinhuanet.com/world/2020-05/13/c_1125981575.htm
+     * user_info : {"avatar_url":"http://sf3-ttcdn-tos.pstatp
+     * .com/img/pgc-image/03f6307ae99745119fa95747f9d9e525~120x256.image","name":"新华网客户端",
+     * "description":"引领品质阅读，让新闻离你更近！","user_id":4377795668,"user_verified":true,"verified_content":"新华网官方账号","follow":false,"follower_count":0,"user_auth_info":"{\"auth_type\":\"0\",\"auth_info\":\"新华网官方账号\"}","schema":"sslocal://profile?uid=4377795668&refer=all","live_info_type":1}
      * user_repin : 0
      * user_verified : 1
-     * verified_content : 中国纪检监察杂志社官方账号
+     * verified_content : 新华网官方账号
      * video_style : 0
      */
 
     @SerializedName("abstract")
     private String abstractX;
-    @SerializedName("action_extra")
-    private String actionExtra;
+    @SerializedName("images")
+    private List<String> imageUrls;
     @SerializedName("aggr_type")
     private int aggrType;
     @SerializedName("allow_download")
@@ -165,8 +162,6 @@ public class FeedItem {
     private int diggCount;
     @SerializedName("display_url")
     private String displayUrl;
-    @SerializedName("feed_title")
-    private String feedTitle;
     @SerializedName("forward_info")
     private ForwardInfo forwardInfo;
     @SerializedName("group_id")
@@ -201,8 +196,6 @@ public class FeedItem {
     private int labelStyle;
     @SerializedName("level")
     private int level;
-    @SerializedName("like_count")
-    private int likeCount;
     @SerializedName("log_pb")
     private LogPb logPb;
     @SerializedName("media_info")
@@ -211,8 +204,6 @@ public class FeedItem {
     private String mediaName;
     @SerializedName("need_client_impr_recycle")
     private int needClientImprRecycle;
-    @SerializedName("optional_data")
-    private OptionalData optionalData;
     @SerializedName("preload_web")
     private int preloadWeb;
     @SerializedName("publish_time")
@@ -273,14 +264,18 @@ public class FeedItem {
     private List<ActionList> actionList;
     @SerializedName("filter_words")
     private List<FilterWords> filterWords;
+    @SerializedName("middle_image")
+    private ImageEntity mMiddleImage;
+    @SerializedName("image_list")
+    private List<ImageEntity> mImageList;
+    @SerializedName("has_image")
+    private boolean mHasImage;
+
+    public int gallary_image_count;
 
     public String getAbstractX() { return abstractX;}
 
     public void setAbstractX(String abstractX) { this.abstractX = abstractX;}
-
-    public String getActionExtra() { return actionExtra;}
-
-    public void setActionExtra(String actionExtra) { this.actionExtra = actionExtra;}
 
     public int getAggrType() { return aggrType;}
 
@@ -358,10 +353,6 @@ public class FeedItem {
 
     public void setDisplayUrl(String displayUrl) { this.displayUrl = displayUrl;}
 
-    public String getFeedTitle() { return feedTitle;}
-
-    public void setFeedTitle(String feedTitle) { this.feedTitle = feedTitle;}
-
     public ForwardInfo getForwardInfo() { return forwardInfo;}
 
     public void setForwardInfo(ForwardInfo forwardInfo) { this.forwardInfo = forwardInfo;}
@@ -430,10 +421,6 @@ public class FeedItem {
 
     public void setLevel(int level) { this.level = level;}
 
-    public int getLikeCount() { return likeCount;}
-
-    public void setLikeCount(int likeCount) { this.likeCount = likeCount;}
-
     public LogPb getLogPb() { return logPb;}
 
     public void setLogPb(LogPb logPb) { this.logPb = logPb;}
@@ -451,10 +438,6 @@ public class FeedItem {
     public void setNeedClientImprRecycle(int needClientImprRecycle) {
         this.needClientImprRecycle = needClientImprRecycle;
     }
-
-    public OptionalData getOptionalData() { return optionalData;}
-
-    public void setOptionalData(OptionalData optionalData) { this.optionalData = optionalData;}
 
     public int getPreloadWeb() { return preloadWeb;}
 
@@ -576,9 +559,41 @@ public class FeedItem {
 
     public void setFilterWords(List<FilterWords> filterWords) { this.filterWords = filterWords;}
 
+    public List<String> getImageUrls() {
+        return imageUrls;
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+        this.imageUrls = imageUrls;
+    }
+
+    public ImageEntity getMiddleImage() {
+        return mMiddleImage;
+    }
+
+    public void setMiddleImage(ImageEntity middleImage) {
+        this.mMiddleImage = middleImage;
+    }
+
+    public List<ImageEntity> getImageList() {
+        return mImageList;
+    }
+
+    public void setImageList(List<ImageEntity> imageList) {
+        this.mImageList = imageList;
+    }
+
+    public boolean isHasImage() {
+        return mHasImage;
+    }
+
+    public void setHasImage(boolean hasImage) {
+        mHasImage = hasImage;
+    }
+
     public static class ForwardInfo {
         /**
-         * forward_count : 6
+         * forward_count : 5
          */
 
         @SerializedName("forward_count")
@@ -627,27 +642,14 @@ public class FeedItem {
 
     public static class LogPb {
         /**
-         * author_id : 105127497573
-         * impr_id : 20200701102130010014041146370184EA
+         * impr_id : 202005140019110100160401411D601865
          * is_following : 0
-         * logpb_group_id : 6844105245551755789
-         * sentinel_type : 0
          */
 
-        @SerializedName("author_id")
-        private String authorId;
         @SerializedName("impr_id")
         private String imprId;
         @SerializedName("is_following")
         private String isFollowing;
-        @SerializedName("logpb_group_id")
-        private String logpbGroupId;
-        @SerializedName("sentinel_type")
-        private String sentinelType;
-
-        public String getAuthorId() { return authorId;}
-
-        public void setAuthorId(String authorId) { this.authorId = authorId;}
 
         public String getImprId() { return imprId;}
 
@@ -656,23 +658,15 @@ public class FeedItem {
         public String getIsFollowing() { return isFollowing;}
 
         public void setIsFollowing(String isFollowing) { this.isFollowing = isFollowing;}
-
-        public String getLogpbGroupId() { return logpbGroupId;}
-
-        public void setLogpbGroupId(String logpbGroupId) { this.logpbGroupId = logpbGroupId;}
-
-        public String getSentinelType() { return sentinelType;}
-
-        public void setSentinelType(String sentinelType) { this.sentinelType = sentinelType;}
     }
 
     public static class MediaInfo {
         /**
-         * avatar_url : http://p5a.pstatp.com/large/b7280005960e5638e842
-         * name : 中国纪检监察杂志
+         * avatar_url : http://p9.pstatp.com/large/pgc-image/03f6307ae99745119fa95747f9d9e525
+         * name : 新华网客户端
          * user_verified : true
-         * media_id : 1613919580596232
-         * user_id : 105127497573
+         * media_id : 4377795668
+         * user_id : 4377795668
          * verified_content :
          * is_star_user : false
          * recommend_reason :
@@ -742,48 +736,14 @@ public class FeedItem {
         public void setFollow(boolean follow) { this.follow = follow;}
     }
 
-    public static class OptionalData {
-        /**
-         * keynews_expire_time : 2020-07-08 00:00:00
-         * video_series :
-         * yunyu_type :
-         */
-
-        @SerializedName("keynews_expire_time")
-        private String keynewsExpireTime;
-        @SerializedName("video_series")
-        private String videoSeries;
-        @SerializedName("yunyu_type")
-        private String yunyuType;
-
-        public String getKeynewsExpireTime() { return keynewsExpireTime;}
-
-        public void setKeynewsExpireTime(String keynewsExpireTime) { this.keynewsExpireTime = keynewsExpireTime;}
-
-        public String getVideoSeries() { return videoSeries;}
-
-        public void setVideoSeries(String videoSeries) { this.videoSeries = videoSeries;}
-
-        public String getYunyuType() { return yunyuType;}
-
-        public void setYunyuType(String yunyuType) { this.yunyuType = yunyuType;}
-    }
-
     public static class ShareInfo {
         /**
-         * share_url : https://m.toutiaocdn.net/a6844105245551755789/?app=news_article&is_hit_share_recommend=0
-         * title : 好家风应世代相传——习近平总书记高度重视领导干部家风建设 - 今日头条
+         * share_url : https://m.toutiaocdn.com/group/6826329825599291917/?app=news_article&is_hit_share_recommend=0
+         * title : 习近平同韩国总统文在寅通电话 - 今日头条
          * description : null
          * cover_image : null
          * share_type : {"pyq":0,"qq":0,"qzone":0,"wx":0}
-         * weixin_cover_image : {"url":"http://p1-tt-ipv6.byteimg
-         * .com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640:360.jpg?from=feed",
-         * "width":640,"url_list":[{"url":"http://p1-tt-ipv6.byteimg
-         * .com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640:360.jpg?from=feed"},{"url
-         * ":"http://p1-tt-ipv6.byteimg.com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640
-         * :360.jpg?from=feed"},{"url":"http://p1-tt-ipv6.byteimg
-         * .com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640:360.jpg?from=feed"}],"uri
-         * ":"large/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e","height":360}
+         * weixin_cover_image : null
          * token_type : 1
          * on_suppress : 0
          * hidden_url : null
@@ -802,7 +762,7 @@ public class FeedItem {
         @SerializedName("share_type")
         private ShareType shareType;
         @SerializedName("weixin_cover_image")
-        private WeixinCoverImage weixinCoverImage;
+        private Object weixinCoverImage;
         @SerializedName("token_type")
         private int tokenType;
         @SerializedName("on_suppress")
@@ -834,9 +794,9 @@ public class FeedItem {
 
         public void setShareType(ShareType shareType) { this.shareType = shareType;}
 
-        public WeixinCoverImage getWeixinCoverImage() { return weixinCoverImage;}
+        public Object getWeixinCoverImage() { return weixinCoverImage;}
 
-        public void setWeixinCoverImage(WeixinCoverImage weixinCoverImage) { this.weixinCoverImage = weixinCoverImage;}
+        public void setWeixinCoverImage(Object weixinCoverImage) { this.weixinCoverImage = weixinCoverImage;}
 
         public int getTokenType() { return tokenType;}
 
@@ -891,72 +851,12 @@ public class FeedItem {
 
             public void setWx(int wx) { this.wx = wx;}
         }
-
-        public static class WeixinCoverImage {
-            /**
-             * url : http://p1-tt-ipv6.byteimg.com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0
-             * :640:360.jpg?from=feed
-             * width : 640
-             * url_list : [{"url":"http://p1-tt-ipv6.byteimg
-             * .com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640:360.jpg?from=feed"},{"url
-             * ":"http://p1-tt-ipv6.byteimg.com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0
-             * :640:360.jpg?from=feed"},{"url":"http://p1-tt-ipv6.byteimg
-             * .com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt-cs0:640:360.jpg?from=feed"}]
-             * uri : large/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e
-             * height : 360
-             */
-
-            @SerializedName("url")
-            private String url;
-            @SerializedName("width")
-            private int width;
-            @SerializedName("uri")
-            private String uri;
-            @SerializedName("height")
-            private int height;
-            @SerializedName("url_list")
-            private List<UrlList> urlList;
-
-            public String getUrl() { return url;}
-
-            public void setUrl(String url) { this.url = url;}
-
-            public int getWidth() { return width;}
-
-            public void setWidth(int width) { this.width = width;}
-
-            public String getUri() { return uri;}
-
-            public void setUri(String uri) { this.uri = uri;}
-
-            public int getHeight() { return height;}
-
-            public void setHeight(int height) { this.height = height;}
-
-            public List<UrlList> getUrlList() { return urlList;}
-
-            public void setUrlList(List<UrlList> urlList) { this.urlList = urlList;}
-
-            public static class UrlList {
-                /**
-                 * url : http://p1-tt-ipv6.byteimg.com/img/tos-cn-i-0000/f8eb56ac-bac6-11ea-89ee-0cc47af3bd1e~tplv-tt
-                 * -cs0:640:360.jpg?from=feed
-                 */
-
-                @SerializedName("url")
-                private String url;
-
-                public String getUrl() { return url;}
-
-                public void setUrl(String url) { this.url = url;}
-            }
-        }
     }
 
     public static class UgcRecommend {
         /**
          * activity :
-         * reason : 中国纪检监察杂志社官方账号
+         * reason : 新华网官方账号
          */
 
         @SerializedName("activity")
@@ -975,16 +875,16 @@ public class FeedItem {
 
     public static class UserInfo {
         /**
-         * avatar_url : http://p3.pstatp.com/thumb/b7280005960e5638e842
-         * name : 中国纪检监察杂志
-         * description : 中国纪检监察杂志社官方头条号
-         * user_id : 105127497573
+         * avatar_url : http://sf3-ttcdn-tos.pstatp.com/img/pgc-image/03f6307ae99745119fa95747f9d9e525~120x256.image
+         * name : 新华网客户端
+         * description : 引领品质阅读，让新闻离你更近！
+         * user_id : 4377795668
          * user_verified : true
-         * verified_content : 中国纪检监察杂志社官方账号
+         * verified_content : 新华网官方账号
          * follow : false
          * follower_count : 0
-         * user_auth_info : {"auth_type": "0", "auth_info": "中国纪检监察杂志社官方账号"}
-         * schema : sslocal://profile?uid=105127497573&refer=all
+         * user_auth_info : {"auth_type":"0","auth_info":"新华网官方账号"}
+         * schema : sslocal://profile?uid=4377795668&refer=all
          * live_info_type : 1
          */
 
@@ -1110,5 +1010,26 @@ public class FeedItem {
         public boolean isIsSelected() { return isSelected;}
 
         public void setIsSelected(boolean isSelected) { this.isSelected = isSelected;}
+    }
+
+    public static class FeedItemAdapter implements JsonDeserializer<FeedItem> , JsonSerializer<FeedItem>{
+        public FeedItemAdapter(Gson gson){
+            this.mGson = gson;
+        }
+        private final Gson mGson ;
+        @Override
+        public FeedItem deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+            throws JsonParseException {
+            if (json instanceof JsonObject) {
+                return mGson.fromJson(((JsonObject)json).get("content").getAsString(), FeedItem.class);
+            }else{
+                return null ;
+            }
+        }
+
+        @Override
+        public JsonElement serialize(FeedItem src, Type typeOfSrc, JsonSerializationContext context) {
+            return mGson.toJsonTree(src);
+        }
     }
 }
