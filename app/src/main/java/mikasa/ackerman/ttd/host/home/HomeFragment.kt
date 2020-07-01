@@ -10,6 +10,7 @@ import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.HomeFragmentBinding
 import mikasa.ackerman.ttd.host.home.viewmodel.HomeViewModel
 import mikasa.ackerman.ttd.host.index.IndexFragment
+import mikasa.ackerman.ttd.host.video.VideoFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.ref.WeakReference
 
@@ -23,6 +24,8 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), RadioGroup.OnCheckedCh
     private val mViewModel: HomeViewModel by viewModel()
 
     private var indexFragmentRef: WeakReference<IndexFragment>? = null
+    private var videoFragmentRef: WeakReference<VideoFragment>? = null
+
     private val indexFragment: IndexFragment
         get() {
             if (indexFragmentRef?.get() == null) {
@@ -30,13 +33,22 @@ class HomeFragment : BaseFragment<HomeFragmentBinding>(), RadioGroup.OnCheckedCh
             }
             return indexFragmentRef!!.get()!!
         }
+    private val videoFragment:VideoFragment
+        get() {
+            if(videoFragmentRef?.get() == null){
+                videoFragmentRef = WeakReference(VideoFragment())
+            }
+            return videoFragmentRef!!.get()!!
+        }
 
     override fun getLayoutId(): Int = R.layout.home_fragment
 
     override fun bindVm() {
         mViewModel.checkedTabIndex.observe(this, Observer { index ->
-            if (index >= 0) {
-                fragmentManager!!.beginTransaction().replace(R.id.subFragment, indexFragment).commit()
+            if(index == 1){
+                childFragmentManager.beginTransaction().replace(R.id.subFragment, videoFragment).commit()
+            }else if (index == 0) {
+                childFragmentManager.beginTransaction().replace(R.id.subFragment, indexFragment).commit()
             }
         })
         mBinding.let {

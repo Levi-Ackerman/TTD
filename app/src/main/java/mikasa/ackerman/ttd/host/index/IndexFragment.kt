@@ -3,14 +3,12 @@
  */
 package mikasa.ackerman.ttd.host.index
 
-import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.gson.Gson
 import mikasa.ackerman.ttd.host.R
 import mikasa.ackerman.ttd.host.base.fragment.BaseFragment
 import mikasa.ackerman.ttd.host.databinding.IndexFragmentBinding
@@ -29,11 +27,9 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
 
     private val mViewModel by viewModel<IndexViewModel>()
 
-    override fun getLayoutId(): Int = R.layout.index_fragment
+    private lateinit var mAdapter : IndexPageAdapter
 
-    private val mAdapter: IndexPageAdapter by lazy {
-        IndexPageAdapter(activity!!, mutableListOf())
-    }
+    override fun getLayoutId(): Int = R.layout.index_fragment
 
     override fun loadData(isRefresh: Boolean) {
         mViewModel.loadData(isRefresh)
@@ -45,6 +41,7 @@ class IndexFragment : BaseFragment<IndexFragmentBinding>() {
                 height = ViewUtil.getStatusBarHeight(context!!)
             }
             vm = mViewModel
+            mAdapter = IndexPageAdapter(activity!!, mutableListOf())
             indexViewPager.adapter = mAdapter
             TabLayoutMediator(articleCategoryTab, indexViewPager) { tab, position ->
                 tab.text = mAdapter.getItemTitle(position)
